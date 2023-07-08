@@ -30,7 +30,7 @@ namespace Timesheet.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("AddedOn")
+                    b.Property<DateTime?>("AddedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EmailId")

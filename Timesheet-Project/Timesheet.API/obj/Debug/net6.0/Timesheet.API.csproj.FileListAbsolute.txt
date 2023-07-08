@@ -65,3 +65,7 @@ D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timeshe
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\ref\Timesheet.API.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Humanizer.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.Core.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.Core.pdb
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\AutoMapper.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet.Core.ViewModel;
 using Timesheet.Data.Entities;
 
 namespace Timesheet.Core.Services.Contracts
@@ -11,8 +12,8 @@ namespace Timesheet.Core.Services.Contracts
     {
         Task<List<Employee>> GetAll();
         Employee GetByEmail(object email);
-        void Add(Employee entity);
-        void Update(Employee entity);
+        void Add(EmployeeDTO entity);
+        void Update(EmployeeDTO entity);
         void Delete(object id);
     }
 }

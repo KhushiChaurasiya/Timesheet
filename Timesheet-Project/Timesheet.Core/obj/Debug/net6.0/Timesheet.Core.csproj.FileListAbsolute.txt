@@ -10,3 +10,6 @@ D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesh
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\refint\Timesheet.Core.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesheet.Core.pdb
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\ref\Timesheet.Core.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\bin\Debug\net6.0\Timesheet.Data.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\bin\Debug\net6.0\Timesheet.Data.pdb
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesheet.Core.csproj.CopyComplete

@@ -23,6 +23,7 @@ namespace Timesheet.Data.Repository
         public void Add(T entity)
         {
             _dbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(object id)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Timesheet.Core.Services.Contracts;
+using Timesheet.Core.ViewModel;
 using Timesheet.Data.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,7 +23,7 @@ namespace Timesheet.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             List<Employee> employee = await _employeeServices.GetAll();
-            return employee;
+            return Ok(employee);
         }
 
         // GET api/<AuthController>/5
@@ -34,8 +35,11 @@ namespace Timesheet.API.Controllers
 
         // POST api/<AuthController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("AddEmployee")]
+        public async Task<IActionResult> AddEmployee([FromBody] EmployeeDTO employee)
         {
+            _employeeServices.Add(employee);
+            return Ok(employee);
         }
 
         // PUT api/<AuthController>/5
