@@ -1,0 +1,14 @@
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\bin\Debug\net6.0\Timesheet.Data.deps.json
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\bin\Debug\net6.0\Timesheet.Data.runtimeconfig.json
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\bin\Debug\net6.0\Timesheet.Data.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\bin\Debug\net6.0\Timesheet.Data.pdb
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\Timesheet.Data.csproj.AssemblyReference.cache
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\Timesheet.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\Timesheet.Data.AssemblyInfoInputs.cache
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\Timesheet.Data.AssemblyInfo.cs
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\Timesheet.Data.csproj.CoreCompileInputs.cache
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\Timesheet.Data.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\refint\Timesheet.Data.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\Timesheet.Data.pdb
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\Timesheet.Data.genruntimeconfig.cache
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Data\obj\Debug\net6.0\ref\Timesheet.Data.dll

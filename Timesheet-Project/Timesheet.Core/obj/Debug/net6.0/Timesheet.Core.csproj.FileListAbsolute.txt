@@ -1,0 +1,12 @@
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\bin\Debug\net6.0\Timesheet.Core.deps.json
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\bin\Debug\net6.0\Timesheet.Core.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\bin\Debug\net6.0\Timesheet.Core.pdb
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesheet.Core.csproj.AssemblyReference.cache
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesheet.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesheet.Core.AssemblyInfoInputs.cache
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesheet.Core.AssemblyInfo.cs
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesheet.Core.csproj.CoreCompileInputs.cache
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesheet.Core.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\refint\Timesheet.Core.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\Timesheet.Core.pdb
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.Core\obj\Debug\net6.0\ref\Timesheet.Core.dll
