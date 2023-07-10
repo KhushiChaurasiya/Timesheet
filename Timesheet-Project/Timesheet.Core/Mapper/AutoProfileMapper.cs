@@ -10,6 +10,7 @@ namespace Timesheet.Core.Mapper
         {
             CreateMap<Employee, EmployeeDTO>();
             CreateMap<EmployeeDTO, Employee>();
+            CreateMap<Project, ProjectDTO>();
         }
     }
 }

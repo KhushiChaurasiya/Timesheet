@@ -8,9 +8,10 @@ import { RegistrationComponent } from './account/registration.component';
 import { LayoutComponent } from './account/layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './_components/alert.component';
 import { HomeComponent } from './home/home.component';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     NgbModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { AccountService } from '../_services/account.service';
+import { EmployeeService } from '../_services/employee.service';
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private accountService: AccountService) {}
+    constructor(private employeeService: EmployeeService) {}
 
     // intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     //     return next.handle(request).pipe(catchError(err => {
@@ -41,7 +41,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
      errors: any;
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
- 
+ debugger;
         return next.handle(req).pipe(
           catchError((error) => {
             if(error.error.Message != undefined){

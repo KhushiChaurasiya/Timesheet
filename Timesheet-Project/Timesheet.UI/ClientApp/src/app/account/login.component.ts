@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   private returnUrl!: string;
   submitted = false;
   emailId = '';
-  employee : Employee[] =[];
-  // employee : Employee | undefined;
+  Erorrmessage! : string;
+  IsError: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private employeeServices : EmployeeService, private alertService : AlertService, private route: ActivatedRoute, private router: Router,) { }
 
@@ -24,9 +24,6 @@ export class LoginComponent implements OnInit {
     this.form = this.formBuilder.group({
       emailId: ['', Validators.required]
   });
-
-  
-  // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get f() { return this.form.controls; }
@@ -43,17 +40,27 @@ export class LoginComponent implements OnInit {
     .pipe(first())
     .subscribe({
       next:(emp) => {
-        this.employee = emp;
         if(emp != null){
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.router.navigateByUrl(returnUrl);
         }
         else{
-          this.alertService.error("Invalid email");
+          this.IsError = true;
+          if(this.IsError)
+          {
+            this.router.navigate(['../register'], { relativeTo: this.route });
+          }
         }
       },
       error: (error: any) => {
-        this.alertService.error(error);
+        this.IsError = true;
+
+        if(this.IsError)
+        {
+          this.Erorrmessage = error;
+        }
+
+        // this.alertService.error(error);
       }
     });
     // this.alertService.error(error)

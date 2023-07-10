@@ -13,11 +13,11 @@ namespace Timesheet.Data.Repository
             _context = context;
             _dbSet = _context.Set<T>();
         }
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
             return _dbSet.AsEnumerable();
         }
-        public T GetById(int Id)
+        public async Task<T> GetById(int Id)
         {
             if (Id != 0)
             {
@@ -30,7 +30,7 @@ namespace Timesheet.Data.Repository
                 return null;
             }
         }
-        public Employee GetByEmailId(string EmailId)
+        public async Task<Employee> GetByEmailId(string EmailId)
         {
             if (EmailId != null)
             {

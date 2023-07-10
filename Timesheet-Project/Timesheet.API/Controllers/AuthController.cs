@@ -22,7 +22,7 @@ namespace Timesheet.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<Employee>> GetAll()
         {
-            return _repository.Employee.GetAll().AsEnumerable();
+            return await _repository.Employee.GetAll();
         }
 
         // GET api/<AuthController>/5
@@ -32,7 +32,7 @@ namespace Timesheet.API.Controllers
         {
             try
             {
-                var response = _repository.Employee.GetByEmailId(EmailId);
+                var response = await _repository.Employee.GetByEmailId(EmailId);
                 return Ok(response);
             }
             catch (Exception ex)
