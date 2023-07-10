@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark px-3">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <!-- <a class="nav-item nav-link" routerLink="/apps" routerLinkActive="active">Apps</a> -->
+        <button class="btn btn-link nav-item nav-link" (click)="logout()">Logout</button>
+    </div>
+</nav>
+
+<div class="p-4">
+    <div class="container">
+        <p>You're logged in with Angular 14!!</p>
+        <!-- <p><a routerLink="/apps">Manage Apps</a></p> -->
+    </div>
+</div>
