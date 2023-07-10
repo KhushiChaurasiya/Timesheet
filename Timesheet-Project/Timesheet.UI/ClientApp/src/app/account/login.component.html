@@ -22,7 +22,7 @@
   
                     <div class="form-outline mb-4">
                         <label class="form-label" for="form2Example17">Email address</label>
-                        <input title="emailId" type="text" name="emailId" formControlName="emailId"  (keyup.enter)="search(emailId)" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['emailId'].errors }" />
+                        <input title="emailId" type="text" name="emailId" formControlName="emailId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['emailId'].errors }" />
                       <div *ngIf="submitted && f['emailId'].errors" class="invalid-feedback">
                         <div *ngIf="f['emailId'].errors && f['emailId'].errors['required']">Email is required.</div>
                     </div>

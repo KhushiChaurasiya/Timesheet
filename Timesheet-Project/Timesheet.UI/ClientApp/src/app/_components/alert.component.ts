@@ -5,9 +5,8 @@ import { NavigationStart, Router } from '@angular/router';
 import { AlertService } from '../_services/alert.service';
 
 @Component({
-  selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+  selector: 'alert',
+  templateUrl: './alert.component.html'
 })
 export class AlertComponent implements  OnInit, OnDestroy {
   @Input() id = 'default-alert';

@@ -10,11 +10,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './_components/alert.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlertComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

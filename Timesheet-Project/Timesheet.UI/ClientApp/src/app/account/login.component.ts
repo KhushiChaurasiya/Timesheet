@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../_services/employee.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../_models/employee';
 import { first } from 'rxjs';
 import { AlertService } from '../_services/alert.service';
@@ -18,10 +18,9 @@ export class LoginComponent implements OnInit {
   employee : Employee[] =[];
   // employee : Employee | undefined;
 
-  constructor(private formBuilder: FormBuilder, private employeeServices : EmployeeService, private alertService : AlertService) { }
+  constructor(private formBuilder: FormBuilder, private employeeServices : EmployeeService, private alertService : AlertService, private route: ActivatedRoute, private router: Router,) { }
 
   ngOnInit() {
-    debugger;
     this.form = this.formBuilder.group({
       emailId: ['', Validators.required]
   });
@@ -31,12 +30,6 @@ export class LoginComponent implements OnInit {
   }
 
   get f() { return this.form.controls; }
-
-  search(value : string){
-    debugger;
-    this.employeeServices.GetEmpInfoByEmail(value).subscribe(emp => this.employee = emp);
-
-  }
 
   onSubmit()
   {
@@ -50,7 +43,14 @@ export class LoginComponent implements OnInit {
     .pipe(first())
     .subscribe({
       next:(emp) => {
-        this.employee = emp
+        this.employee = emp;
+        if(emp != null){
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.router.navigateByUrl(returnUrl);
+        }
+        else{
+          this.alertService.error("Invalid email");
+        }
       },
       error: (error: any) => {
         this.alertService.error(error);

@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Timesheet.Data.Entities;
 using Timesheet.Data.Repository.Contracts;
 
@@ -13,62 +8,61 @@ namespace Timesheet.Data.Repository
     {
         private readonly DatabaseContext _context;
         private readonly DbSet<T> _dbSet;
-
         public GenericRepository(DatabaseContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();
         }
-
-
-        public void Add(T entity)
-        {
-            _dbSet.Add(entity);
-            _context.SaveChanges();
-        }
-
-        public void Delete(object id)
-        {
-            var entity = Get(id);
-            if (entity != null)
-            {
-                if (_context.Entry(entity).State == EntityState.Detached)
-                {
-                    _dbSet.Attach(entity);
-                }
-                _dbSet.Remove(entity);
-            }
-        }
-
-        public T Get(object id)
-        {
-            var x = _dbSet.Find(id);
-            return x;
-        }
-
         public IEnumerable<T> GetAll()
         {
             return _dbSet.AsEnumerable();
         }
-
-        public T GetByEmail(string EmailId)
+        public T GetById(int Id)
         {
-            var d = _context.Employee.Where(x => x.EmailId == EmailId).AsEnumerable();
-            return (T)d;
+            if (Id != 0)
+            {
+                var Obj = _dbSet.Find(Id);
+                if (Obj != null) return Obj;
+                else return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public Employee GetByEmailId(string EmailId)
+        {
+            if (EmailId != null)
+            {
+                DbSet<Employee>? employee = _context.Employee;
+                var Obj = employee.FirstOrDefault(x => x.EmailId == EmailId);
+                if (Obj != null) return Obj;
+                else return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public async Task<T> Create(T entity)
+        {
+            var obj = _context.Add<T>(entity);
+            await _context.SaveChangesAsync();
+            return obj.Entity;
         }
 
-        //public T GetByEmail(string EmailId)
-        //{
-
-        //    //var x= _context.Set<T>().Find(EmailId);
-        //    var x = _dbSet.Where(x.);
-        //    return x;
-        //}
-
+        public void Delete(T entity)
+        {
+            var obj = _context.Remove(entity);
+            if (obj != null)
+            {
+                _context.SaveChangesAsync();
+            }
+        }
         public void Update(T entity)
         {
-            _dbSet.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            var obj = _context.Update(entity);
+            if (obj != null) _context.SaveChanges();
         }
     }
 }

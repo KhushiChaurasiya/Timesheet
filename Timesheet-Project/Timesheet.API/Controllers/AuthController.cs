@@ -23,7 +23,6 @@ namespace Timesheet.API.Controllers
         public async Task<IEnumerable<Employee>> GetAll()
         {
             return _repository.Employee.GetAll().AsEnumerable();
-            //return (IEnumerable<Employee>)Ok(d);
         }
 
         // GET api/<AuthController>/5
@@ -33,7 +32,7 @@ namespace Timesheet.API.Controllers
         {
             try
             {
-                var response = _repository.Employee.GetByEmail(EmailId);
+                var response = _repository.Employee.GetByEmailId(EmailId);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -58,20 +57,20 @@ namespace Timesheet.API.Controllers
                 EmailId = employee.EmailId,
             };
 
-            _repository.Employee.Add(entity);
+           await _repository.Employee.Create(entity);
             return Ok(employee);
         }
 
         // PUT api/<AuthController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE api/<AuthController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<AuthController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
