@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Timesheet.Core.Services.Contracts;
 using Timesheet.Core.ViewModel;
+using Timesheet.Data;
 using Timesheet.Data.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,26 +11,39 @@ namespace Timesheet.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IEmployeeServices _employeeServices;
+        private readonly IUnitOfWork _repository;
 
-        public AuthController(IEmployeeServices employeeServices)
+        public AuthController(IUnitOfWork repository)
         {
-            _employeeServices = employeeServices;
+            _repository = repository;
         }
 
         // GET: api/<AuthController>
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IEnumerable<Employee>> GetAll()
         {
-            List<Employee> employee = await _employeeServices.GetAll();
-            return Ok(employee);
+            return _repository.Employee.GetAll().AsEnumerable();
+            //return (IEnumerable<Employee>)Ok(d);
         }
 
         // GET api/<AuthController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("GetEmpInfoByEmail")]
+        public async Task<IActionResult> GetEmpInfoByEmail(string EmailId)
         {
-            return "value";
+            try
+            {
+                var response = _repository.Employee.GetByEmail(EmailId);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new BaseResponseDTO
+                {
+                    IsSuccess = false,
+                    Errors = new string[] { ex.Message }
+                });
+            }
         }
 
         // POST api/<AuthController>
@@ -38,7 +51,14 @@ namespace Timesheet.API.Controllers
         [Route("AddEmployee")]
         public async Task<IActionResult> AddEmployee([FromBody] EmployeeDTO employee)
         {
-            _employeeServices.Add(employee);
+            var entity = new Employee
+            {
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                EmailId = employee.EmailId,
+            };
+
+            _repository.Employee.Add(entity);
             return Ok(employee);
         }
 

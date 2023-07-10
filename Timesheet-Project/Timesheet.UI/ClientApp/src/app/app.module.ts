@@ -8,15 +8,19 @@ import { RegistrationComponent } from './account/registration.component';
 import { LayoutComponent } from './account/layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { AlertComponent } from './_components/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule,
     NgbModule
   ],

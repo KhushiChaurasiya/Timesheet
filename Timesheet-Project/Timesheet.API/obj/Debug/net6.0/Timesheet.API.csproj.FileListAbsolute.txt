@@ -5,9 +5,13 @@ D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timeshe
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.API.runtimeconfig.json
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.API.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.API.pdb
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\AutoMapper.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Humanizer.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Microsoft.Identity.Client.dll
@@ -40,7 +44,9 @@ D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\runtime
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.Core.dll
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.Data.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.Core.pdb
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.Data.pdb
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.csproj.AssemblyReference.cache
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.GeneratedMSBuildEditorConfig.editorconfig
@@ -63,9 +69,3 @@ D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\refint\
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.pdb
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.genruntimeconfig.cache
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\ref\Timesheet.API.dll
-D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Humanizer.dll
-D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
-D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.Core.dll
-D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\Timesheet.Core.pdb
-D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\AutoMapper.dll
-D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

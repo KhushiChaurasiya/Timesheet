@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet.Data.Entities;
 using Timesheet.Data.Repository.Contracts;
 
 namespace Timesheet.Data.Repository
@@ -45,16 +46,24 @@ namespace Timesheet.Data.Repository
             return x;
         }
 
-        public async Task<List<T>> GetAll()
+        public IEnumerable<T> GetAll()
         {
-            return await _dbSet.ToListAsync();
+            return _dbSet.AsEnumerable();
         }
 
-        public T GetByEmail(object email)
+        public T GetByEmail(string EmailId)
         {
-            var x = _dbSet.Find();
-            return x;
+            var d = _context.Employee.Where(x => x.EmailId == EmailId).AsEnumerable();
+            return (T)d;
         }
+
+        //public T GetByEmail(string EmailId)
+        //{
+
+        //    //var x= _context.Set<T>().Find(EmailId);
+        //    var x = _dbSet.Where(x.);
+        //    return x;
+        //}
 
         public void Update(T entity)
         {
