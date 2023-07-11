@@ -1,4 +1,5 @@
-﻿using Timesheet.Data.Repository;
+﻿using Timesheet.Core.Services.Contracts;
+using Timesheet.Data.Repository;
 using Timesheet.Data.Repository.Contracts;
 
 namespace Timesheet.Data
@@ -11,6 +12,8 @@ namespace Timesheet.Data
             _context = context;
         }
         public IEmployeeRepository Employee => new EmployeeRepository(_context);
+
+        public IProjectRepository Project =>  new ProjectRepository(_context);
 
         public async Task CommitAsync()
         {

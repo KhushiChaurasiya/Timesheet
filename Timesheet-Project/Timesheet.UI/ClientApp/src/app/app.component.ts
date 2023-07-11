@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ClientApp';
+  username : any;
+
+  constructor(private router: Router) { }
 
   logout()
   {
-    
+    this.username = localStorage.getItem('username');  
+    this.router.navigate(['/account/login']);
   }
 }

@@ -20,6 +20,7 @@ namespace Timesheet.Data
             return base.SaveChangesAsync(cancellationToken);
         }
         public DbSet<Employee>? Employee { get; set; }
+        public DbSet<Project>? Project { get; set; }
 
     }
 }

@@ -17,8 +17,10 @@ export class LoginComponent implements OnInit {
   emailId = '';
   Erorrmessage! : string;
   IsError: boolean = false;
+  empDetails : any;
 
-  constructor(private formBuilder: FormBuilder, private employeeServices : EmployeeService, private alertService : AlertService, private route: ActivatedRoute, private router: Router,) { }
+
+  constructor(private formBuilder: FormBuilder, private employeeServices : EmployeeService, private alertService : AlertService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -41,6 +43,9 @@ export class LoginComponent implements OnInit {
     .subscribe({
       next:(emp) => {
         if(emp != null){
+        this.empDetails = emp;
+        localStorage.setItem('email', this.empDetails.emailId);  
+        localStorage.setItem('username', this.empDetails.firstName);  
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.router.navigateByUrl(returnUrl);
         }
