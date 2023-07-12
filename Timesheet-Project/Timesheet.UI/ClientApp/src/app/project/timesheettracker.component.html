@@ -1,0 +1,32 @@
+<div class="Container">
+    <h4>Timesheet Form</h4>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tasks</th>
+            <th>Work Place</th>
+            <th>Reason</th>
+            <th *ngFor="let item of weekDays">{{item}}</th>
+         <tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" placeholder="Type Your Summary" ></td>
+            <td>
+                <select name="countryName">
+                    <option>Choose a Workplace</option> 
+                  </select> 
+            </td>
+            <td>
+                <select name="countryName">
+                    <option >Choose a reason</option>
+                </select>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- <tr *ngFor="let item of data.value">
+    <td>{{item}}</td>
+ <tr> -->

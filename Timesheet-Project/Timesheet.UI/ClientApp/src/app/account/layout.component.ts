@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { EmployeeService } from '../_services/employee.service';
 
 @Component({
   selector: 'app-layout',
@@ -6,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor( private router: Router,
+    private employeeService: EmployeeService) { 
+       this.router.navigate(['/account/login']);
+    
+    }
 
   ngOnInit(): void {
   }

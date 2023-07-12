@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 using Timesheet.Data.Entities;
 using Timesheet.Data.Repository.Contracts;
 
@@ -17,7 +18,7 @@ namespace Timesheet.Data.Repository
         {
             return _dbSet.AsEnumerable();
         }
-        public async Task<T> GetById(int Id)
+        public T GetById(int Id)
         {
             if (Id != 0)
             {
@@ -51,18 +52,35 @@ namespace Timesheet.Data.Repository
             return obj.Entity;
         }
 
-        public void Delete(T entity)
+        public void Delete(int id)
         {
-            var obj = _context.Remove(entity);
-            if (obj != null)
+            //var obj = _context.Remove(id);
+            //if (obj != null)
+            //{
+            //    _context.SaveChangesAsync();
+            //}
+
+            var entity = GetById(id);
+            if (entity != null)
             {
+                if (_context.Entry(entity).State == EntityState.Detached)
+                {
+                    _dbSet.Attach(entity);
+                }
+                _dbSet.Remove(entity);
                 _context.SaveChangesAsync();
             }
         }
         public void Update(T entity)
         {
-            var obj = _context.Update(entity);
-            if (obj != null) _context.SaveChanges();
+            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChangesAsync();
+        }
+
+        public void Delete(object id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
