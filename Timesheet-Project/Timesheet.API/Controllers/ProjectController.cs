@@ -22,7 +22,8 @@ namespace Timesheet.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<Project>> GetAll()
         {
-            return await _repository.Project.GetAll();
+            var response = await _repository.Project.GetAll();
+            return response.OrderByDescending(x => x.AddedOn); 
         }
 
         //// GET api/<ProjectController>/5

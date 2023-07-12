@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.empDetails = emp;
         localStorage.setItem('email', this.empDetails.emailId);  
         localStorage.setItem('username', this.empDetails.firstName);  
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/list';
         this.router.navigateByUrl(returnUrl);
         }
         else{

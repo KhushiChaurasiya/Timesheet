@@ -6,4 +6,5 @@
     startDate?:Date;
     endDate?:Date;
     createdBy?:string;
+    addedOn?:Date;
 }

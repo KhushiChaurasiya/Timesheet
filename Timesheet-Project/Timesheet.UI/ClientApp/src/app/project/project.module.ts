@@ -5,6 +5,7 @@ import { AddEditComponent } from './add-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutComponent } from './layout.component';
 import { ProjectRoutingModule } from './project-routing.module';
+import { TimesheettrackerComponent } from './timesheettracker.component';
 
 
 
@@ -12,7 +13,8 @@ import { ProjectRoutingModule } from './project-routing.module';
   declarations: [
     ListComponent,
     AddEditComponent,
-    LayoutComponent
+    LayoutComponent,
+    TimesheettrackerComponent
   ],
   imports: [
     CommonModule,
