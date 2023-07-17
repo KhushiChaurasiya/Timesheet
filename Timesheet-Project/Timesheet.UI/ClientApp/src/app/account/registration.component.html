@@ -12,7 +12,6 @@
                 <div class="card-body p-4 p-lg-5 text-black">
   
                   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  
                     <div class="d-flex align-items-center mb-3 pb-1">
                       <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                       <span class="h1 fw-bold mb-0">Logo</span>
@@ -21,34 +20,29 @@
                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
   
                     <div class="form-outline mb-4">
-                        <input type="text" id="form2Example17" formControlName="firstname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['firstname'].errors }" />
-                        <label class="form-label" for="form2Example17">Firstname</label>
-                        <div *ngIf="submitted && f['firstname'].errors" class="invalid-feedback">
-                            <div *ngIf="f['firstname'].errors && f['firstname'].errors['required']">Firstname is required.</div>
-                        </div>
+                      <label class="form-label" for="form2Example17">Firstname</label>
+                      <input type="text" id="form2Example17" formControlName="firstname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['firstname'].errors }" />
+                      <div *ngIf="submitted && f['firstname'].errors" class="invalid-feedback">
+                          <div *ngIf="f['firstname'].errors && f['firstname'].errors['required']">Firstname is required.</div>
+                      </div>
                     </div>
                     <div class="form-outline mb-4">
-                        <input type="text" id="form2Example17" formControlName="lastname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['lastname'].errors }" />
-                        <label class="form-label" for="form2Example17">Lastname</label>
-                        <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback">
-                            <div *ngIf="f['lastname'].errors && f['lastname'].errors['required']">Lastname is required.</div>
-                        </div>
+                      <label class="form-label" for="form2Example17">Lastname</label>
+                      <input type="text" id="form2Example17" formControlName="lastname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['lastname'].errors }" />
+                      <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback">
+                          <div *ngIf="f['lastname'].errors && f['lastname'].errors['required']">Lastname is required.</div>
+                      </div>
                     </div>
                     <div class="form-outline mb-4">
-                      <input type="email" id="form2Example17" formControlName="emailId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['emailId'].errors }" />
                       <label class="form-label" for="form2Example17">Email address</label>
-                      <div *ngIf="submitted && f['emailId'].errors" class="invalid-feedback">
-                        <div *ngIf="f['emailId'].errors && f['emailId'].errors['required']">Email is required.</div>
-                    </div>
-                    </div>
-  
-                    <!-- <div class="form-outline mb-4">
-                      <input type="password" id="form2Example27" class="form-control form-control-lg" />
-                      <label class="form-label" for="form2Example27">Password</label>
-                    </div> -->
-  
+                      <input type="email" id="form2Example17" formControlName="emailId" [pattern]="emailPattern" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['emailId'].errors }" />
+                      <div  *ngIf="submitted && f['emailId'].errors" class="invalid-feedback">
+                        <div *ngIf="f['emailId'].errors['required']">Email is required</div>
+                        <div *ngIf="f['emailId'].errors['pattern']">Email must be a valid email address</div>
+                      </div>
+                    </div>  
                     <div class="pt-1 mb-4">
-                        <button type="submit"class="btn btn-primary">Register </button>
+                        <button type="submit"class="btn btn-primary">Sign Up </button>
                         <a routerLink="../login" class="btn btn-link">Cancel</a>
                     </div>
                     

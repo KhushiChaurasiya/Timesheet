@@ -14,7 +14,7 @@ namespace Timesheet.Data
         {
             foreach (var item in ChangeTracker.Entries<BaseEntity>().AsEnumerable())
             {
-                item.Entity.AddedOn = DateTime.Now;
+                item.Entity.CreatedOn = DateTime.Now;
             }
 
             return base.SaveChangesAsync(cancellationToken);
@@ -22,5 +22,6 @@ namespace Timesheet.Data
         public DbSet<Employee>? Employee { get; set; }
         public DbSet<Project>? Project { get; set; }
 
+        public DbSet<ProjectTask>? ProjectTask { get; set; }
     }
 }

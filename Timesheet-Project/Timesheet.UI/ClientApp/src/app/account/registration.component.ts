@@ -13,7 +13,7 @@ export class RegistrationComponent implements OnInit {
   loading = false;
   submitted = false;
   employee : any;
-
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
   constructor(  private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -24,11 +24,14 @@ export class RegistrationComponent implements OnInit {
     this.form = this.formBuilder.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      emailId: ['', Validators.required]
+      emailId: ['', [Validators.required, Validators.email,Validators.pattern(this.emailPattern)]]
   });
   }
 
   get f() { return this.form.controls; }
+  get emailId() {
+    return this.form.get('emailId');
+}
 
   onSubmit() {
     debugger;

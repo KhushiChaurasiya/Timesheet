@@ -6,6 +6,7 @@ namespace Timesheet.Data
     {
         IEmployeeRepository Employee { get; }
         IProjectRepository Project { get; }
+        ITaskRepository Task { get; }
         Task CommitAsync();
     }
 }

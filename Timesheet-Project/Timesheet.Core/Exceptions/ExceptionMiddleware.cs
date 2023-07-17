@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System.Data;
 using System.Net;
 using Timesheet.Core.ViewModel;
 
@@ -38,6 +39,11 @@ namespace Timesheet.Core.Exceptions
             catch (ArgumentNullException avEx)
             {
                 _logger.LogError($"value is null: {avEx}");
+                await HandleExceptionAsync(httpContext, avEx);
+            }
+            catch(DuplicateNameException avEx)
+            {
+                _logger.LogError($"Dublicate value: {avEx}");
                 await HandleExceptionAsync(httpContext, avEx);
             }
             catch (Exception ex)
@@ -80,6 +86,10 @@ namespace Timesheet.Core.Exceptions
                     errorResponse.Message = ex.Message;
                     break;
                 case NullReferenceException ex:
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    errorResponse.Message = ex.Message;
+                    break;
+                case DuplicateNameException ex:
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     errorResponse.Message = ex.Message;
                     break;

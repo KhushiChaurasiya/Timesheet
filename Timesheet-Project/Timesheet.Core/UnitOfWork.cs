@@ -15,6 +15,8 @@ namespace Timesheet.Data
 
         public IProjectRepository Project =>  new ProjectRepository(_context);
 
+        public ITaskRepository Task => new TaskRepository(_context);
+
         public async Task CommitAsync()
         {
             await _context.SaveChangesAsync();

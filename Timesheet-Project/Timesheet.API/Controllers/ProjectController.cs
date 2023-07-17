@@ -23,10 +23,10 @@ namespace Timesheet.API.Controllers
         public async Task<IEnumerable<Project>> GetAll()
         {
             var response = await _repository.Project.GetAll();
-            return response.OrderByDescending(x => x.AddedOn); 
+            return response.OrderByDescending(x => x.CreatedOn); 
         }
 
-        //// GET api/<ProjectController>/5
+        // GET api/<ProjectController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -38,6 +38,8 @@ namespace Timesheet.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromForm] ProjectDTO project)
         {
+           _repository.Project.ValidateByIDAndName(project.Name, project.Code);
+
             var entity = new Project
             {
                 Code = project.Code,

@@ -11,7 +11,6 @@ export class LayoutComponent implements OnInit {
   constructor( private router: Router,
     private employeeService: EmployeeService) { 
        this.router.navigate(['/account/login']);
-    
     }
 
   ngOnInit(): void {

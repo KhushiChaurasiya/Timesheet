@@ -6,6 +6,6 @@ namespace Timesheet.Data
     {
         [Key]
         public virtual int Id { get; set; }
-        public virtual DateTime? AddedOn { get; set; }
+        public virtual DateTime? CreatedOn { get; set; }
     }
 }

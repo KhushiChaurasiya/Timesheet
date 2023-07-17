@@ -6,5 +6,5 @@
     startDate?:Date;
     endDate?:Date;
     createdBy?:string;
-    addedOn?:Date;
+    createdOn?:Date;
 }

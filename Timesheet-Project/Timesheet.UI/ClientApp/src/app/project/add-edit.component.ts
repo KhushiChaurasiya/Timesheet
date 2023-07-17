@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ProjectService } from '../_services/project.service';
 import { AlertService } from '../_services/alert.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +20,14 @@ export class AddEditComponent implements OnInit {
   title!: string;
   submitting = false;
   proDetails : any =[];
+  dateValid : boolean =true;
 
+  checkDates(group: FormGroup) {
+    if(group.controls['endDate'].value <= group.controls['startDate'].value) {
+    return { notValid:true }
+    }
+    return null;
+ }
   constructor(private formBuilder: FormBuilder, private projectService : ProjectService, private alertService : AlertService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -32,7 +39,8 @@ export class AddEditComponent implements OnInit {
       description: ['',Validators.required],
       startDate : ['', Validators.required],
       endDate: ['',Validators.required]
-  });
+  },{validators:this.checkDates});
+  
 
   this.title = 'Add Project';
   if (this.id) {
@@ -70,7 +78,7 @@ export class AddEditComponent implements OnInit {
 
     this.saveApp().subscribe({
       next:(emp) => {
-        this.alertService.success('Project detail saved', { keepAfterRouteChange: true });
+        this.alertService.success('Project details saved', { keepAfterRouteChange: true });
         if(this.id != null){
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/list';
           this.router.navigateByUrl(returnUrl);
@@ -79,7 +87,6 @@ export class AddEditComponent implements OnInit {
         }
       },
       error: (error: any) => {
-      
         this.alertService.error(error);
       }
     });
