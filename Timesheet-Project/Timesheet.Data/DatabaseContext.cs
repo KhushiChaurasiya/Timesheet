@@ -23,5 +23,13 @@ namespace Timesheet.Data
         public DbSet<Project>? Project { get; set; }
 
         public DbSet<ProjectTask>? ProjectTask { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProjectTask>()
+            .HasOne(_ => _.Projects)
+            .WithMany(a => a.ProjectTask)
+            .HasForeignKey(p => p.ProjectId);
+        }
     }
 }

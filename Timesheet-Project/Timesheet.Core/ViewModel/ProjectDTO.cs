@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet.Data.Entities;
 
 namespace Timesheet.Core.ViewModel
 {
@@ -16,5 +17,7 @@ namespace Timesheet.Core.ViewModel
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string CreatedBy { get; set; }
+
+        //public List<ProjectTask> ProjectTask { get; set; }
     }
 }

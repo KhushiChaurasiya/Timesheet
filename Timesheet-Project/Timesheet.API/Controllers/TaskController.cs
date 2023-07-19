@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Timesheet.Core.ViewModel;
 using Timesheet.Data;
 using Timesheet.Data.Entities;
@@ -11,18 +12,22 @@ namespace Timesheet.API.Controllers
     {
 
         private readonly IUnitOfWork _repository;
+        private readonly DatabaseContext _context;
 
-        public TaskController(IUnitOfWork repository)
+        public TaskController(IUnitOfWork repository, DatabaseContext context)
         {
             _repository = repository;
+            _context = context;
         }
 
         // GET: api/<TaskController>
         [HttpGet]
-        public async Task<IEnumerable<ProjectTask>> Get()
+        public async Task<IActionResult> Get()
         {
-            var response = await _repository.Task.GetAll();
-            return response.OrderByDescending(x => x.CreatedOn);
+
+            var response = await _repository.Task.GetAllTask();
+            return Ok(response);
+            //return response.OrderByDescending(x => x.CreatedOn);
         }
 
         //// GET api/<TaskController>/5

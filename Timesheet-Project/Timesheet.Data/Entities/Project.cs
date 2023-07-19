@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Timesheet.Data.Entities
@@ -27,5 +28,8 @@ namespace Timesheet.Data.Entities
         [Required]
         [StringLength(50)]
         public string CreatedBy { get; set; }
+
+        [JsonIgnore]
+        public List<ProjectTask> ProjectTask { get; set; }
     }
 }

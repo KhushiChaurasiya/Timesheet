@@ -86,5 +86,23 @@ namespace Timesheet.Data.Repository
                 throw new DuplicateNameException("Project is already added");
             } 
         }
+
+        //public async Task<List<ProjectTask>> GetAllTask()
+        //{
+        //    DbSet<ProjectTask>? res = _context.ProjectTask;
+        //    var Obj = res.Include(_ => _.Projects).ToList();
+        //    //var res = await _context.ProjectTask.Include(_ => _.Projects).ToListAsync();
+        //    if (Obj != null) return Obj;
+        //    else return null;
+        //}
+
+        public async Task<List<ProjectTask>> GetAllTask()
+        {
+            DbSet<ProjectTask>? res = _context.ProjectTask;
+            var Obj = res.Include(_ => _.Projects).ToList();
+            //var res = await _context.ProjectTask.Include(_ => _.Projects).ToListAsync();
+            if (Obj != null) return Obj;
+            else return null;
+        }
     }
 }
