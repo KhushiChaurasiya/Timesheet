@@ -12,6 +12,8 @@ namespace Timesheet.Core.Mapper
             CreateMap<EmployeeDTO, Employee>();
             CreateMap<Project, ProjectDTO>();
             CreateMap<ProjectTaskDTO, ProjectTask>();
+            CreateMap<Reason, ReasonDTO>();
+            CreateMap<Workplace, WorkplaceDTO>();
         }
     }
 }

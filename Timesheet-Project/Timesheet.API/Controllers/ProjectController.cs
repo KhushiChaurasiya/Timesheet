@@ -23,14 +23,14 @@ namespace Timesheet.API.Controllers
         public async Task<IEnumerable<Project>> GetAll()
         {
             var response = await _repository.Project.GetAll();
-            return response.OrderByDescending(x => x.CreatedOn); 
+            return response.OrderByDescending(x => x.CreatedOn);
         }
 
         // GET api/<ProjectController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-          var response = _repository.Project.GetById(id);
+            var response = _repository.Project.GetById(id);
             return Ok(response);
         }
 
@@ -38,7 +38,7 @@ namespace Timesheet.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromForm] ProjectDTO project)
         {
-           _repository.Project.ValidateByIDAndName(project.Name, project.Code);
+            _repository.Project.ValidateByIDAndName(project.Name, project.Code);
 
             var entity = new Project
             {
@@ -68,7 +68,7 @@ namespace Timesheet.API.Controllers
                 EndDate = model.EndDate,
                 CreatedBy = model.CreatedBy,
             };
-            
+
             _repository.Project.Update(entity);
             return Ok(project);
 
@@ -78,7 +78,7 @@ namespace Timesheet.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-             _repository.Project.Delete(id);
+            _repository.Project.Delete(id);
             return Ok();
         }
     }

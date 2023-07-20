@@ -12,11 +12,10 @@ namespace Timesheet.Data
             _context = context;
         }
         public IEmployeeRepository Employee => new EmployeeRepository(_context);
-
-        public IProjectRepository Project =>  new ProjectRepository(_context);
-
+        public IProjectRepository Project => new ProjectRepository(_context);
         public ITaskRepository Task => new TaskRepository(_context);
-
+        public IWorkplaceRepository Workplace => new WorkplaceRepository(_context);
+        public IReasonRepository Reason => new ReasonRepository(_context); 
         public async Task CommitAsync()
         {
             await _context.SaveChangesAsync();

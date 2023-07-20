@@ -16,13 +16,13 @@ namespace Timesheet.Data
             {
                 item.Entity.CreatedOn = DateTime.Now;
             }
-
             return base.SaveChangesAsync(cancellationToken);
         }
         public DbSet<Employee>? Employee { get; set; }
         public DbSet<Project>? Project { get; set; }
-
         public DbSet<ProjectTask>? ProjectTask { get; set; }
+        public DbSet<Workplace>? Workplace { get; set; }
+        public DbSet<Reason>? Reason { get; set; }   
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

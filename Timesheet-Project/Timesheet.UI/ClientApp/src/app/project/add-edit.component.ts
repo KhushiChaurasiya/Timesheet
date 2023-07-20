@@ -108,8 +108,6 @@ export class AddEditComponent implements OnInit {
       return this.id
           ? this.projectService.put(this.id, filedata)
           : this.projectService.CreateProject(filedata)
-    
-
   }
 
 }

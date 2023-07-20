@@ -57,7 +57,7 @@ namespace Timesheet.API.Controllers
                 EmailId = employee.EmailId,
             };
 
-           await _repository.Employee.Create(entity);
+            await _repository.Employee.Create(entity);
             return Ok(employee);
         }
 

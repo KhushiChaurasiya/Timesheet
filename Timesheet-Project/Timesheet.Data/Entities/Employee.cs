@@ -4,6 +4,8 @@ namespace Timesheet.Data.Entities
 {
     public class Employee : BaseEntity
     {
+        [Key]
+        public int Id { get; set; }
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
@@ -13,5 +15,8 @@ namespace Timesheet.Data.Entities
         [Required]
         [StringLength(50)]
         public string EmailId { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string CreatedBy { get; set; }
     }
 }

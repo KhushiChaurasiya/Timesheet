@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Timesheet.Core.ViewModel;
 using Timesheet.Data;
 using Timesheet.Data.Entities;

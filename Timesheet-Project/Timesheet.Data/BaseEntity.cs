@@ -4,8 +4,6 @@ namespace Timesheet.Data
 {
     public abstract class BaseEntity
     {
-        [Key]
-        public virtual int Id { get; set; }
         public virtual DateTime? CreatedOn { get; set; }
     }
 }

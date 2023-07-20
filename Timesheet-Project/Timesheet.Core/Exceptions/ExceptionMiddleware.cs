@@ -41,7 +41,7 @@ namespace Timesheet.Core.Exceptions
                 _logger.LogError($"value is null: {avEx}");
                 await HandleExceptionAsync(httpContext, avEx);
             }
-            catch(DuplicateNameException avEx)
+            catch (DuplicateNameException avEx)
             {
                 _logger.LogError($"Dublicate value: {avEx}");
                 await HandleExceptionAsync(httpContext, avEx);

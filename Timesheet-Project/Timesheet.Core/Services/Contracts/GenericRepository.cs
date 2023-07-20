@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Security.Cryptography.X509Certificates;
 using Timesheet.Data.Entities;
 using Timesheet.Data.Repository.Contracts;
 
@@ -79,12 +78,12 @@ namespace Timesheet.Data.Repository
             _context.SaveChangesAsync();
         }
         public void ValidateByIDAndName(string Name, string ProjectId)
-        { 
-            var obj = _context.Project.Where(x=>x.Name == Name || x.Code == ProjectId).ToList();
+        {
+            var obj = _context.Project.Where(x => x.Name == Name || x.Code == ProjectId).ToList();
             if (obj != null)
             {
                 throw new DuplicateNameException("Project is already added");
-            } 
+            }
         }
 
         //public async Task<List<ProjectTask>> GetAllTask()
