@@ -15,6 +15,11 @@ namespace Timesheet.Data.Entities
         [Required]
         [StringLength(50)]
         public string TaskDescription { get; set; }
+        [Required]
+        public DateTime StartDate { get; set; }
+        [Required]
+        public DateTime EndDate { get; set; }
+        [Required]
         public string CreatedBy { get; set; }
 
         // Foreign key   

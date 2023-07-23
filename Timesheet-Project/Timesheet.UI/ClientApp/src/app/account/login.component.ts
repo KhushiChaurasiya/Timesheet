@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit()
   {
-    debugger;
     this.submitted = true;
     this.alertService.clear();
     if (this.form.invalid) {
@@ -46,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.empDetails = emp;
         localStorage.setItem('email', this.empDetails.emailId);  
         localStorage.setItem('username', this.empDetails.firstName);  
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/list';
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projectlist';
         this.router.navigateByUrl(returnUrl);
         }
         else{

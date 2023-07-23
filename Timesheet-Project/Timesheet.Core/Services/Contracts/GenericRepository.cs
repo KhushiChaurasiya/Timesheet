@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Data;
 using Timesheet.Data.Entities;
 using Timesheet.Data.Repository.Contracts;
@@ -82,7 +83,7 @@ namespace Timesheet.Data.Repository
             var obj = _context.Project.Where(x => x.Name == Name || x.Code == ProjectId).ToList();
             if (obj != null)
             {
-                throw new DuplicateNameException("Project is already added");
+                throw new DuplicateNameException("Project is already exists");
             }
         }
 
@@ -102,6 +103,22 @@ namespace Timesheet.Data.Repository
             //var res = await _context.ProjectTask.Include(_ => _.Projects).ToListAsync();
             if (Obj != null) return Obj;
             else return null;
+        }
+
+        public async Task<List<string>> GetAllTaskName()
+        {
+            var Obj = _context.ProjectTask.Select(x => x.TaskName.ToLower()).ToList();
+            if (Obj != null) return Obj;
+            else return null;
+        }
+
+        public void ValidateTaskDuplication(int projectId, string taskName)
+        {
+            var obj = _context.ProjectTask.Any(x => (x.ProjectId == projectId && x.TaskName == taskName));
+            if (obj == true)
+            {
+                throw new DuplicateNameException("Task is already exists");
+            }
         }
     }
 }

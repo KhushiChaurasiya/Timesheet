@@ -55,7 +55,7 @@ namespace Timesheet.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employee", (string)null);
                 });
 
             modelBuilder.Entity("Timesheet.Data.Entities.Project", b =>
@@ -97,7 +97,7 @@ namespace Timesheet.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Project");
+                    b.ToTable("Project", (string)null);
                 });
 
             modelBuilder.Entity("Timesheet.Data.Entities.ProjectTask", b =>
@@ -115,8 +115,14 @@ namespace Timesheet.Data.Migrations
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TaskDescription")
                         .IsRequired()
@@ -132,7 +138,7 @@ namespace Timesheet.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectTask");
+                    b.ToTable("ProjectTask", (string)null);
                 });
 
             modelBuilder.Entity("Timesheet.Data.Entities.Workplace", b =>
@@ -155,7 +161,7 @@ namespace Timesheet.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Workplace");
+                    b.ToTable("Workplace", (string)null);
                 });
 
             modelBuilder.Entity("Timesheet.Data.Entities.ProjectTask", b =>

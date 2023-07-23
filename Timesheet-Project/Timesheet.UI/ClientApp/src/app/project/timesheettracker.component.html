@@ -1,6 +1,46 @@
 <div class="Container">
     <h4>Timesheet Form</h4>
+
+    <br/>
+    <div>
+        <p><span>Current Project : </span>
+       <b> {{ProjectName}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <span>Week :</span>
+
+        <!-- <a href="#" class="previous">&laquo; Previous</a>
+<a href="#" class="next">Next &raquo;</a> -->
+        <button (click)="pre(weekDays[0])" class="previous">&laquo; Previous</button>
+        <button (click)="next(weekDays[6])" class="next">Next &raquo;</button></p>
+    </div>
 </div>
+
+<style>
+.previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.next {
+  background-color: #04AA6D;
+  color: white;
+  
+}
+
+button{
+  text-decoration: none;
+  display: inline-block;
+  padding: 4px 8px;
+}
+
+button:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+
+</style>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -15,16 +55,23 @@
             <td><input type="text" (keyup)="getProjectIds($event)" id="projectIds" list="dynmicUserIds" />
                 <datalist id="dynmicUserIds">
                    <option *ngFor="let item of projectList" [value]="item">{{item}}</option>
-                </datalist></td>
-            <td>
-                <select name="countryName">
-                    <option>Choose a Workplace</option> 
-                  </select> 
+                </datalist>
             </td>
             <td>
-                <select name="countryName">
-                    <option >Choose a reason</option>
-                </select>
+                <select class="form-control">
+                    <option>Choose a workplace</option>
+                    <option *ngFor="let wor of workplaceData; let i = index" [value]="wor.id">
+                      {{wor.name}}
+                    </option>
+                  </select>
+            </td>
+            <td>
+                <select class="form-control" >
+                    <option>Choose a reason</option>
+                    <option *ngFor="let res of reasonData; let i = index" [value]="res.id">
+                      {{res.name}}
+                    </option>
+                  </select>
             </td>
             <td>
                 <input type="text" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 50%;">

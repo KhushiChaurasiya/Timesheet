@@ -17,7 +17,10 @@
     <tbody>
         <tr *ngFor="let pro of projectDetails">
             <td>{{pro.code}}</td>
-            <td><a href="/Timesheet">{{pro.name}}</a></td>
+            <td>
+                <a [routerLink]="['/Timesheet']" [queryParams]="{'ProjectName' :[pro.name]}"  >{{pro.name}}</a>
+              </td>
+            <!-- <td><a [routerLink]="['/Timesheet']"  [queryParams]="">{{pro.name}}</a></td> -->
             <td>{{pro.description}}</td>
             <td>{{pro.startDate | date:'yyyy-MM-dd'}}</td>
             <td>{{pro.endDate | date:'yyyy-MM-dd'}}</td>
@@ -29,3 +32,4 @@
     </tbody>
 </table>
 </div>
+

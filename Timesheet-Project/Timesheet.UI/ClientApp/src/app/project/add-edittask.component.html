@@ -1,0 +1,57 @@
+<div class="container">
+    <div><br><br></div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form4Example2">Task Name</label>
+          <input type="text" id="form4Example2" class="form-control" formControlName="taskName" placeholder="Task Name" [ngClass]="{ 'is-invalid': submitted && f['taskName'].errors }"/>
+          <div *ngIf="submitted && f['taskName'].errors" class="invalid-feedback">
+            <div *ngIf="f['taskName'].errors && f['taskName'].errors['required']">Task Name is required.</div>
+          </div>
+        </div>
+      
+        <!-- Message input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form4Example3">Task Description</label>
+          <textarea class="form-control" id="form4Example3" rows="4" formControlName="taskDescription" placeholder="Task Description" [ngClass]="{ 'is-invalid': submitted && f['taskDescription'].errors }"></textarea>
+          <div *ngIf="submitted && f['taskDescription'].errors" class="invalid-feedback">
+            <div *ngIf="f['taskDescription'].errors && f['taskDescription'].errors['required']">Task Description is required.</div>
+        </div>
+        </div>
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form4Example3">Project</label>
+          <select class="form-control" formControlName="projectId" [ngClass]="{ 'is-invalid': submitted && f['projectId'].errors }">
+            <option *ngFor="let order of projectDetails; let i = index" [value]="order.id">
+              {{order.name}}
+            </option>
+          </select>
+          <div *ngIf="submitted && f['projectId'].errors" class="invalid-feedback">
+            <div *ngIf="f['projectId'].errors && f['projectId'].errors['required']">Project is required.</div>
+        </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form4Example2">Start Date</label>
+                <input type="date" id="form3Example1" class="form-control" formControlName="startDate" value="{{ proDetails.startDate | date:'yyyy-MM-dd' }}" placeholder="Start Date" [ngClass]="{ 'is-invalid': submitted && f['startDate'].errors }"/>
+                <div *ngIf="submitted && f['startDate'].errors" class="invalid-feedback">
+                    <div *ngIf="f['startDate'].errors && f['startDate'].errors['required']">Start Date is required.</div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form4Example2">End Date</label>
+                <input type="date" id="form3Example2" class="form-control" formControlName="endDate" placeholder="End Date" value="{{ proDetails.endDate | date:'yyyy-MM-dd' }}" [ngClass]="{ 'is-invalid': submitted && f['endDate'].errors }"/>
+                <div *ngIf="submitted && f['endDate'].errors" class="invalid-feedback">
+                    <div *ngIf="f['endDate'].errors && f['endDate'].errors['required']">End Date is required.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <small *ngIf="form.hasError('notValid')" style="color: red;">Not valid</small>
+        <!-- Submit button -->
+        <button type="submit"class="btn btn-primary">Save </button> 
+        <a routerLink="/tasklist" class="btn btn-link">Cancel</a>
+      </form>
+</div>

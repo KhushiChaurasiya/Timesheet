@@ -41,7 +41,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
      errors: any;
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
- debugger;
         return next.handle(req).pipe(
           catchError((error) => {
             if(error.error.Message != undefined){

@@ -1,0 +1,33 @@
+<div class="container">
+    <div><br/></div>
+<a routerLink="../addtask" class="btn btn-sm btn-success mb-2">Create new task</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Task Name</th>
+            <th>Task Description</th>
+            <th> StartDate</th>
+            <th> EndDate</th>
+            <th>Created By</th>
+            <th>Created On</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pro of taskDetails">
+            <td>{{pro.projects?.name}}</td>
+            <td>{{pro.taskName}}</td>
+            <td>{{pro.taskDescription}}</td>
+            <td>{{pro.startDate | date:'yyyy-MM-dd'}}</td>
+            <td>{{pro.endDate | date:'yyyy-MM-dd'}}</td>
+            <td>{{pro.createdBy}}</td>
+            <td>{{pro.createdOn | date:'yyyy-MM-dd'}}</td>
+            <td><a routerLink="../edittask/{{pro.id}}" class="btn btn-sm btn-success mb-2"><i class="bi bi-pencil-square"></i> </a><span>|</span> 
+                <a [routerLink]="" (click)="delete(pro.id!)" class="btn btn-sm btn-danger mb-2"><i class="bi bi-trash3"></i></a>  </td>
+        </tr>
+    </tbody>
+</table>
+
+  
+</div>

@@ -34,7 +34,6 @@ export class RegistrationComponent implements OnInit {
 }
 
   onSubmit() {
-    debugger;
     this.submitted = true;
 
     // stop here if form is invalid

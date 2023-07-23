@@ -38,7 +38,6 @@ export class ListComponent implements OnInit {
   delete(id: number) { 
     var ans = confirm("Do you want to delete app with Id: " + id);  
     if (ans) {  
-      debugger;
         this.projectServices.delete(id).subscribe((data) => {  
             this.getAllProjectDetails();
         }, error => this.alertService.error(error))  

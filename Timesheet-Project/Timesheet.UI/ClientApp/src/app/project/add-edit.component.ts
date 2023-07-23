@@ -44,7 +44,6 @@ export class AddEditComponent implements OnInit {
 
   this.title = 'Add Project';
   if (this.id) {
-    debugger;
       // edit mode
       this.title = 'Edit Project';
       this.projectService.getById(this.id)
@@ -68,7 +67,6 @@ export class AddEditComponent implements OnInit {
 
   onSubmit()
   {
-    debugger;
     this.submitted = true;
     this.alertService.clear();
     if (this.form.invalid) {
@@ -76,14 +74,14 @@ export class AddEditComponent implements OnInit {
     }
     const filedata = new FormData();
 
-    this.saveApp().subscribe({
+    this.saveProject().subscribe({
       next:(emp) => {
         this.alertService.success('Project details saved', { keepAfterRouteChange: true });
         if(this.id != null){
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/list';
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projectlist';
           this.router.navigateByUrl(returnUrl);
         }else{
-          this.router.navigate(['../list'], { relativeTo: this.route });
+          this.router.navigate(['../projectlist'], { relativeTo: this.route });
         }
       },
       error: (error: any) => {
@@ -93,8 +91,7 @@ export class AddEditComponent implements OnInit {
     // this.alertService.error(error)
   }
 
-  private saveApp() {
-    debugger;
+  private saveProject() {
       const filedata = new FormData();
       if( this.id != null){
         filedata.append('Id', this.id);

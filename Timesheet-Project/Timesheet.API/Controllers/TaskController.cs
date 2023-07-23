@@ -39,13 +39,17 @@ namespace Timesheet.API.Controllers
 
         // POST api/<TaskController>
         [HttpPost]
+        [Route("PostProjectTask")]
         public async Task<IActionResult> PostProjectTask([FromForm] ProjectTaskDTO task)
         {
+            _repository.Task.ValidateTaskDuplication(task.ProjectId, task.TaskName); 
             var entity = new ProjectTask
             {
                 TaskName = task.TaskName,
                 TaskDescription = task.TaskDescription,
                 ProjectId = task.ProjectId,
+                StartDate = task.StartDate,
+                EndDate = task.EndDate,
                 CreatedBy = task.CreatedBy,
             };
             await _repository.Task.Create(entity);
@@ -59,8 +63,18 @@ namespace Timesheet.API.Controllers
 
         // DELETE api/<TaskController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            _repository.Task.Delete(id);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetAllTaskName")]
+        public async Task<IActionResult> GetAllTaskName()
+        {
+            var response = await _repository.Task.GetAllTaskName();
+            return Ok(response);
         }
     }
 }
