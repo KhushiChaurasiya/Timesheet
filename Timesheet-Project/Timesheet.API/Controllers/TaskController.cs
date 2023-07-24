@@ -71,9 +71,9 @@ namespace Timesheet.API.Controllers
 
         [HttpGet]
         [Route("GetAllTaskName")]
-        public async Task<IActionResult> GetAllTaskName()
+        public async Task<IActionResult> GetAllTaskName(string ProjectName)
         {
-            var response = await _repository.Task.GetAllTaskName();
+            var response = await _repository.Task.GetAllTaskName(ProjectName);
             return Ok(response);
         }
     }

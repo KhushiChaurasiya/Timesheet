@@ -16,31 +16,7 @@
     </div>
 </div>
 
-<style>
-.previous {
-  background-color: #f1f1f1;
-  color: black;
-}
-
-.next {
-  background-color: #04AA6D;
-  color: white;
-  
-}
-
-button{
-  text-decoration: none;
-  display: inline-block;
-  padding: 4px 8px;
-}
-
-button:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-
-</style>
+<form [formGroup]="form" (ngSubmit)="onSubmit()"> 
 <table class="table table-striped">
     <thead>
         <tr>
@@ -52,26 +28,37 @@ button:hover {
     </thead>
     <tbody>
         <tr>
-            <td><input type="text" (keyup)="getProjectIds($event)" id="projectIds" list="dynmicUserIds" />
+            <td><input type="text" (keyup)="getTaskNamesSearch($event)" id="taskNamesSearch" list="dynmicUserIds"  formControlName="taskId" [ngClass]="{ 'is-invalid': submitted && f['taskId'].errors }"/>
                 <datalist id="dynmicUserIds">
                    <option *ngFor="let item of projectList" [value]="item">{{item}}</option>
                 </datalist>
+                <div *ngIf="submitted && f['taskId'].errors" class="invalid-feedback">
+                    <div *ngIf="f['taskId'].errors && f['taskId'].errors['required']">Task is required.</div>
+                </div>
             </td>
             <td>
-                <select class="form-control">
+                <select class="form-control" (change)='onWorkplaceSelected($event)' formControlName="workplaceId" [ngClass]="{ 'is-invalid': submitted && f['workplaceId'].errors }">
                     <option>Choose a workplace</option>
                     <option *ngFor="let wor of workplaceData; let i = index" [value]="wor.id">
                       {{wor.name}}
                     </option>
                   </select>
+
+                  <div *ngIf="submitted && f['workplaceId'].errors" class="invalid-feedback">
+                    <div *ngIf="f['workplaceId'].errors && f['workplaceId'].errors['required']">Workplace is required.</div>
+                </div>
             </td>
             <td>
-                <select class="form-control" >
+                <select class="form-control" (change)='onReasonSelected($event)' formControlName="reasonId" [ngClass]="{ 'is-invalid': submitted && f['reasonId'].errors }">
                     <option>Choose a reason</option>
                     <option *ngFor="let res of reasonData; let i = index" [value]="res.id">
                       {{res.name}}
                     </option>
                   </select>
+
+                  <div *ngIf="submitted && f['reasonId'].errors" class="invalid-feedback">
+                    <div *ngIf="f['reasonId'].errors && f['reasonId'].errors['required']">Workplace is required.</div>
+                </div>
             </td>
             <td>
                 <input type="text" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 50%;">
@@ -104,14 +91,30 @@ button:hover {
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Date Info</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <input type="number" class="form-control"/>
-            </div>
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                  <label for="time" class="col-form-label">Time</label>
+                </div>
+                <div class="col-auto">
+                    <input type="time"/>
+                </div>
+              </div>
+              <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                  <label for="time" class="col-form-label">Description</label>
+                </div>
+                <div class="col-auto">
+                    <textarea id="form4Example3" rows="4" formControlName="taskDescription" [ngClass]="{ 'is-invalid': submitted && f['taskDescription'].errors }"></textarea>   
+                    <div *ngIf="submitted && f['taskDescription'].errors" class="invalid-feedback">
+                        <div *ngIf="f['taskDescription'].errors && f['taskDescription'].errors['required']">Task Description is required.</div>
+                    </div>
+                </div>
+              </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
@@ -119,3 +122,32 @@ button:hover {
         </div>
     </div>
 </div>
+<button type="submit"class="btn btn-primary">Save </button> 
+<!-- <a routerLink="/projectlist" class="btn btn-link">Cancel</a> -->
+</form>
+
+
+
+<style>
+    .previous {
+      background-color: #f1f1f1;
+      color: black;
+    }
+    
+    .next {
+      background-color: #04AA6D;
+      color: white;
+      
+    }
+    
+    button{
+      text-decoration: none;
+      display: inline-block;
+      padding: 4px 8px;
+    }
+    
+    button:hover {
+      background-color: #ddd;
+      color: black;
+    }
+</style>

@@ -52,9 +52,10 @@ export class ProjectService {
   public putTask(id: number,task: any) {
     return this.http.put<any>(`${environment.apiUrl}/api/Task/${id}`,task);
   }
-  public getAllTaskName()
+  public getAllTaskName(ProjectName : any)
   {
-    return this.http.get<ProjectTask[]>(`${environment.apiUrl}/api/Task/GetAllTaskName`);
+    debugger;
+    return this.http.get<ProjectTask[]>(`${environment.apiUrl}/api/Task/GetAllTaskName?ProjectName=${ProjectName}`);
   }
 
 

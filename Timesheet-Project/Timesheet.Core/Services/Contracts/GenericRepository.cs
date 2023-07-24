@@ -80,7 +80,7 @@ namespace Timesheet.Data.Repository
         }
         public void ValidateByIDAndName(string Name, string ProjectId)
         {
-            var obj = _context.Project.Where(x => x.Name == Name || x.Code == ProjectId).ToList();
+            var obj = _context.Project?.Where(x => x.Name == Name || x.Code == ProjectId).ToList();
             if (obj != null)
             {
                 throw new DuplicateNameException("Project is already exists");
@@ -105,16 +105,21 @@ namespace Timesheet.Data.Repository
             else return null;
         }
 
-        public async Task<List<string>> GetAllTaskName()
+        public async Task<List<string>> GetAllTaskName(string ProjectName)
         {
-            var Obj = _context.ProjectTask.Select(x => x.TaskName.ToLower()).ToList();
-            if (Obj != null) return Obj;
-            else return null;
+            var ProId = _context.Project?.FirstOrDefault(x => x.Name == ProjectName);
+            if (ProId != null)
+            {
+                var ProjectTaskList = _context.ProjectTask?.Where(a => a.ProjectId == ProId.Id).ToList();
+                var Obj = ProjectTaskList?.Select(x => x.TaskName.ToLower()).ToList();
+                if (Obj != null) return Obj;
+            }
+            return null;
         }
 
         public void ValidateTaskDuplication(int projectId, string taskName)
         {
-            var obj = _context.ProjectTask.Any(x => (x.ProjectId == projectId && x.TaskName == taskName));
+            var obj = _context.ProjectTask?.Any(x => (x.ProjectId == projectId && x.TaskName == taskName));
             if (obj == true)
             {
                 throw new DuplicateNameException("Task is already exists");

@@ -11,7 +11,7 @@ namespace Timesheet.Data.Repository.Contracts
         public void Delete(int id);
         public void Update(T entity);
         public Task<List<ProjectTask>> GetAllTask();
-        public Task<List<string>> GetAllTaskName();
+        public Task<List<string>> GetAllTaskName(string ProjectName);
 
         public void ValidateByIDAndName(string name, string ProjectId);
 

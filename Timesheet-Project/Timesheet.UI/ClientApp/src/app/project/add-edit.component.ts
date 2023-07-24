@@ -23,6 +23,7 @@ export class AddEditComponent implements OnInit {
   dateValid : boolean =true;
 
   checkDates(group: FormGroup) {
+    debugger;
     if(group.controls['endDate'].value <= group.controls['startDate'].value) {
     return { notValid:true }
     }
@@ -53,7 +54,6 @@ export class AddEditComponent implements OnInit {
               this.proDetails = x;
              this.form.patchValue(x);
             //  this.form.controls['startDate'].setValue(formatDate(this.proDetails.startDate,'yyyy-mm-dd','en'));
-
             },
             error: (error: any) => {
               this.alertService.error(error);
@@ -72,8 +72,6 @@ export class AddEditComponent implements OnInit {
     if (this.form.invalid) {
       return; 
     }
-    const filedata = new FormData();
-
     this.saveProject().subscribe({
       next:(emp) => {
         this.alertService.success('Project details saved', { keepAfterRouteChange: true });

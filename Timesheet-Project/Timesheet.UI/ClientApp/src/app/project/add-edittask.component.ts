@@ -57,8 +57,6 @@ export class AddEdittaskComponent implements OnInit {
     if (this.form.invalid) {
       return; 
     }
-    const filedata = new FormData();
-
     this.saveTask().subscribe({
       next:(emp) => {
         this.alertService.success('Task details saved', { keepAfterRouteChange: true });

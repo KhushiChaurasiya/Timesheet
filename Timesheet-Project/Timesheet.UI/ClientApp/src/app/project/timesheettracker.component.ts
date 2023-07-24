@@ -4,6 +4,8 @@ import { ProjectService } from '../_services/project.service';
 import { AlertService } from '../_services/alert.service';
 import { DatePipe, formatDate } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TimesheetTracker } from '../_models/timesheettracker';
 
 @Component({
   selector: 'app-timesheettracker',
@@ -18,29 +20,44 @@ export class TimesheettrackerComponent implements OnInit {
    reasonData : any[] =[];
    workplaceData:any[]=[];
    ProjectName : any ;
+   form!: FormGroup;
+   timesheetTracker : TimesheetTracker[]=[];
+   workplaceId : any;
+   reasonId : any;
+   submitting = false;
+   submitted = false;
 
-  constructor( private projectServices:ProjectService, private alertService : AlertService,private router: Router, private route: ActivatedRoute) { 
+  constructor(private formBuilder: FormBuilder, private projectServices:ProjectService, private alertService : AlertService,private router: Router, private route: ActivatedRoute) { 
     
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.ProjectName = this.route.snapshot.queryParamMap.get('ProjectName');
     //Get all task name
-    this.projectServices.getAllTaskName().subscribe(data => {
+    this.projectServices.getAllTaskName(this.ProjectName).subscribe(data => {
       Object.assign(this.projectData, data);
     },
     error => {
       console.log("Something wrong here");
     });
-
-
     var currentDate = moment();
     var weekStart = currentDate.clone().startOf('week');
     for (let i = 0; i <= 6; i++) {
         this.weekDays.push(moment(weekStart).add(i, 'days').format("ddd DD - MMM"));
     };
     console.log(this.weekDays);
+    debugger;
+    this.form = this.formBuilder.group({
+    
+      taskId: ['', Validators.required],
+      taskDescription: ['', Validators.required],
+      // projectId: ['',Validators.required],
+      workplaceId : ['', Validators.required],
+      reasonId: ['',Validators.required],
+  });
   }
+
+  get f() { return this.form.controls; }
   closeModalDialog(){
 
   }
@@ -49,16 +66,19 @@ export class TimesheettrackerComponent implements OnInit {
   {
 
   }
-  getProjectIds(event: any) {
-    var userId = (<HTMLInputElement>document.getElementById('projectIds')).value;
+
+  getTaskNamesSearch(event: any) {
+    debugger;
+    var taskNamesSearch = (<HTMLInputElement>document.getElementById('taskNamesSearch')).value;
     this.projectList = [];
-    var findtask = userId.toLowerCase();
-    if (userId.length > 2) {
+    var findtask = taskNamesSearch.toLowerCase();
+    if (taskNamesSearch.length > 2) {
       if (event.timeStamp - this.lastkeydown > 200) {
         this.projectList = this.searchFromArray(this.projectData, findtask);
       }
     }
   }
+
   searchFromArray(arr : any, regex : any) {
     let matches = [], i;
     for (i = 0; i < arr.length; i++) {
@@ -66,6 +86,7 @@ export class TimesheettrackerComponent implements OnInit {
         matches.push(arr[i]);
 
         this.projectServices.getAllReason().subscribe((res)=>{
+          debugger;
           this.reasonData = res
         },
         (error) => {
@@ -73,6 +94,7 @@ export class TimesheettrackerComponent implements OnInit {
         });
 
         this.projectServices.getAllWorkplace().subscribe((response)=>{
+          debugger;
           this.workplaceData = response
         },
         (error) => {
@@ -83,29 +105,48 @@ export class TimesheettrackerComponent implements OnInit {
     return matches;
   };
   
-pre(dt : any) {
-  this.weekDays = this.fnWeekDays(moment(dt, "ddd DD - MMM").subtract(1, 'days'));
-  console.log("Pre date" +this.weekDays);
-};
+  pre(dt : any) {
+    this.weekDays = this.fnWeekDays(moment(dt, "ddd DD - MMM").subtract(1, 'days'));
+    console.log("Pre date" +this.weekDays);
+  };
 
-next(dt: any)
-{
-  this.weekDays = this.fnWeekDays(moment(dt, "dd DD - MM").add(1, 'days'));
-}
-
+  next(dt: any)
+  {
+    this.weekDays = this.fnWeekDays(moment(dt, "dd DD - MM").add(1, 'days'));
+  }
 
   fnWeekDays(dt : any) {
 
-    var currentDate = dt;
-    var weekStart = currentDate.clone().startOf('week');
-    var weekEnd = currentDate.clone().endOf('week');
+      var currentDate = dt;
+      var weekStart = currentDate.clone().startOf('week');
+      var weekEnd = currentDate.clone().endOf('week');
 
-    var days = [];
-    for (let i = 0; i <= 6; i++) {
+      var days = [];
+      for (let i = 0; i <= 6; i++) {
 
-        days.push(moment(weekStart).add(i, 'days').format("ddd DD - MMM"));
+          days.push(moment(weekStart).add(i, 'days').format("ddd DD - MMM"));
 
-    };
-    return days;
+      };
+      return days;
+  }
+
+  onWorkplaceSelected(event : any)
+  {
+      this.workplaceId = event.target.value;
+  }
+  onReasonSelected(event:any)
+  {
+    this.reasonId = event.target.value;
+  }
+
+  onSubmit()
+  {
+    debugger;
+    this.submitted = true;
+    this.alertService.clear();
+    if (this.form.invalid) {
+      return; 
+    }
+    
   }
 }
