@@ -26,5 +26,7 @@ namespace Timesheet.Data.Entities
 
         [JsonIgnore]
         public List<ProjectTask> ProjectTask { get; set; }
+        [JsonIgnore]
+        public List<TimesheetTracker> TimesheetTracker { get; set; }
     }
 }

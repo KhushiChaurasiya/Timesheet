@@ -55,7 +55,7 @@ namespace Timesheet.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employee", (string)null);
+                    b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("Timesheet.Data.Entities.Project", b =>
@@ -97,7 +97,7 @@ namespace Timesheet.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Project", (string)null);
+                    b.ToTable("Project");
                 });
 
             modelBuilder.Entity("Timesheet.Data.Entities.ProjectTask", b =>
@@ -138,13 +138,16 @@ namespace Timesheet.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectTask", (string)null);
+                    b.ToTable("ProjectTask");
                 });
 
-            modelBuilder.Entity("Timesheet.Data.Entities.Workplace", b =>
+            modelBuilder.Entity("Timesheet.Data.Entities.Reason", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -161,7 +164,82 @@ namespace Timesheet.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Workplace", (string)null);
+                    b.ToTable("Reason");
+                });
+
+            modelBuilder.Entity("Timesheet.Data.Entities.TimesheetTracker", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Dates")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsSaved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSubmitted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReasonId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TaskDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("Times")
+                        .HasColumnType("time");
+
+                    b.Property<int>("WorkplaceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReasonId");
+
+                    b.HasIndex("WorkplaceId");
+
+                    b.ToTable("TimesheetTracker");
+                });
+
+            modelBuilder.Entity("Timesheet.Data.Entities.Workplace", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Workplace");
                 });
 
             modelBuilder.Entity("Timesheet.Data.Entities.ProjectTask", b =>
@@ -175,9 +253,61 @@ namespace Timesheet.Data.Migrations
                     b.Navigation("Projects");
                 });
 
+            modelBuilder.Entity("Timesheet.Data.Entities.TimesheetTracker", b =>
+                {
+                    b.HasOne("Timesheet.Data.Entities.Project", "Projects")
+                        .WithMany("TimesheetTracker")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Timesheet.Data.Entities.ProjectTask", "ProjectTask")
+                        .WithMany("TimesheetTracker")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Timesheet.Data.Entities.Reason", "Reason")
+                        .WithMany("TimesheetTracker")
+                        .HasForeignKey("ReasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Timesheet.Data.Entities.Workplace", "Workplace")
+                        .WithMany("TimesheetTracker")
+                        .HasForeignKey("WorkplaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProjectTask");
+
+                    b.Navigation("Projects");
+
+                    b.Navigation("Reason");
+
+                    b.Navigation("Workplace");
+                });
+
             modelBuilder.Entity("Timesheet.Data.Entities.Project", b =>
                 {
                     b.Navigation("ProjectTask");
+
+                    b.Navigation("TimesheetTracker");
+                });
+
+            modelBuilder.Entity("Timesheet.Data.Entities.ProjectTask", b =>
+                {
+                    b.Navigation("TimesheetTracker");
+                });
+
+            modelBuilder.Entity("Timesheet.Data.Entities.Reason", b =>
+                {
+                    b.Navigation("TimesheetTracker");
+                });
+
+            modelBuilder.Entity("Timesheet.Data.Entities.Workplace", b =>
+                {
+                    b.Navigation("TimesheetTracker");
                 });
 #pragma warning restore 612, 618
         }

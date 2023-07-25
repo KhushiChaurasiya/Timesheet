@@ -23,7 +23,6 @@ export class AddEditComponent implements OnInit {
   dateValid : boolean =true;
 
   checkDates(group: FormGroup) {
-    debugger;
     if(group.controls['endDate'].value <= group.controls['startDate'].value) {
     return { notValid:true }
     }

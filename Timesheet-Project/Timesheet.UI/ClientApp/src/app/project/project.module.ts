@@ -8,6 +8,7 @@ import { ProjectRoutingModule } from './project-routing.module';
 import { TimesheettrackerComponent } from './timesheettracker.component';
 import { ProjecttaskComponent } from './projecttask.component';
 import { AddEdittaskComponent } from './add-edittask.component';
+import { DynamictrackerComponent } from './dynamictracker.component';
 
 
 
@@ -18,7 +19,8 @@ import { AddEdittaskComponent } from './add-edittask.component';
     LayoutComponent,
     TimesheettrackerComponent,
     ProjecttaskComponent,
-    AddEdittaskComponent
+    AddEdittaskComponent,
+    DynamictrackerComponent
   ],
   imports: [
     CommonModule,

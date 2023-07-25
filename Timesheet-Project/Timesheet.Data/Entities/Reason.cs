@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Timesheet.Data.Entities
 {
@@ -13,6 +14,8 @@ namespace Timesheet.Data.Entities
         [Required]
         [StringLength(50)]
         public string CreatedBy { get; set; }
+        [JsonIgnore]
+        public List<TimesheetTracker> TimesheetTracker { get; set; }
 
     }
 }

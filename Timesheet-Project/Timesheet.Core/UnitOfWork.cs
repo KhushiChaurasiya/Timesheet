@@ -16,6 +16,7 @@ namespace Timesheet.Data
         public ITaskRepository Task => new TaskRepository(_context);
         public IWorkplaceRepository Workplace => new WorkplaceRepository(_context);
         public IReasonRepository Reason => new ReasonRepository(_context); 
+        public ITimesheetTrackerRepository TimesheetTracker => new TimesheetTrackerRepository(_context);
         public async Task CommitAsync()
         {
             await _context.SaveChangesAsync();

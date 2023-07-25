@@ -9,6 +9,7 @@ namespace Timesheet.Data
         ITaskRepository Task { get; }
         IWorkplaceRepository Workplace { get; }
         IReasonRepository Reason { get; }
+        ITimesheetTrackerRepository TimesheetTracker { get; }
         Task CommitAsync();
     }
 }

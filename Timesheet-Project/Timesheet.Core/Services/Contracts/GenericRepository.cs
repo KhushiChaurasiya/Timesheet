@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using Timesheet.Data.Entities;
+using Timesheet.Data.Model;
 using Timesheet.Data.Repository.Contracts;
 
 namespace Timesheet.Data.Repository
@@ -105,13 +106,13 @@ namespace Timesheet.Data.Repository
             else return null;
         }
 
-        public async Task<List<string>> GetAllTaskName(string ProjectName)
+        public async Task<List<TaskResponse>> GetAllTaskName(string ProjectName)
         {
             var ProId = _context.Project?.FirstOrDefault(x => x.Name == ProjectName);
             if (ProId != null)
             {
                 var ProjectTaskList = _context.ProjectTask?.Where(a => a.ProjectId == ProId.Id).ToList();
-                var Obj = ProjectTaskList?.Select(x => x.TaskName.ToLower()).ToList();
+                var Obj = ProjectTaskList?.Select(x => new TaskResponse() {Taskname= x.TaskName.ToLower(), Id= x.Id }).ToList();
                 if (Obj != null) return Obj;
             }
             return null;

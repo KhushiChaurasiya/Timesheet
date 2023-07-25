@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Timesheet.Data.Entities
 {
@@ -28,5 +29,7 @@ namespace Timesheet.Data.Entities
 
         [ForeignKey("Id")]
         public virtual Project Projects { get; set; }
+        [JsonIgnore]
+        public List<TimesheetTracker> TimesheetTracker { get; set; }
     }
 }

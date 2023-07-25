@@ -54,7 +54,6 @@ export class ProjectService {
   }
   public getAllTaskName(ProjectName : any)
   {
-    debugger;
     return this.http.get<ProjectTask[]>(`${environment.apiUrl}/api/Task/GetAllTaskName?ProjectName=${ProjectName}`);
   }
 
