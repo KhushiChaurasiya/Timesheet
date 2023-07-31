@@ -29,6 +29,9 @@ namespace Timesheet.Data.Entities
 
         [ForeignKey("Id")]
         public virtual Project Projects { get; set; }
+
+        [Required]
+        public string Estimationhrs { get; set; }
         [JsonIgnore]
         public List<TimesheetTracker> TimesheetTracker { get; set; }
     }

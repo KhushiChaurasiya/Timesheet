@@ -1,6 +1,17 @@
 <div class="container">
     <div><br><br></div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form4Example3">Project</label>
+        <select class="form-control" formControlName="projectId" [ngClass]="{ 'is-invalid': submitted && f['projectId'].errors }">
+          <option *ngFor="let order of projectDetails; let i = index" [value]="order.id">
+            {{order.name}}
+          </option>
+        </select>
+        <div *ngIf="submitted && f['projectId'].errors" class="invalid-feedback">
+          <div *ngIf="f['projectId'].errors && f['projectId'].errors['required']">Project is required.</div>
+        </div>
+      </div>
         <!-- Email input -->
         <div class="form-outline mb-4">
           <label class="form-label" for="form4Example2">Task Name</label>
@@ -16,18 +27,14 @@
           <textarea class="form-control" id="form4Example3" rows="4" formControlName="taskDescription" placeholder="Task Description" [ngClass]="{ 'is-invalid': submitted && f['taskDescription'].errors }"></textarea>
           <div *ngIf="submitted && f['taskDescription'].errors" class="invalid-feedback">
             <div *ngIf="f['taskDescription'].errors && f['taskDescription'].errors['required']">Task Description is required.</div>
-        </div>
+          </div>
         </div>
         <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example3">Project</label>
-          <select class="form-control" formControlName="projectId" [ngClass]="{ 'is-invalid': submitted && f['projectId'].errors }">
-            <option *ngFor="let order of projectDetails; let i = index" [value]="order.id">
-              {{order.name}}
-            </option>
-          </select>
-          <div *ngIf="submitted && f['projectId'].errors" class="invalid-feedback">
-            <div *ngIf="f['projectId'].errors && f['projectId'].errors['required']">Project is required.</div>
-        </div>
+          <label class="form-label" for="form4Example3">Estimation Hrs</label>
+          <input type="text" formControlName="estimationhrs"  id="form3Example1" class="form-control">
+          <div *ngIf="submitted && f['estimationhrs'].errors" class="invalid-feedback">
+            <div *ngIf="f['estimationhrs'].errors && f['estimationhrs'].errors['required']">Project is required.</div>
+          </div>
         </div>
         <div class="row mb-4">
             <div class="col">

@@ -118,6 +118,10 @@ namespace Timesheet.Data.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Estimationhrs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
@@ -170,7 +174,10 @@ namespace Timesheet.Data.Migrations
             modelBuilder.Entity("Timesheet.Data.Entities.TimesheetTracker", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -181,9 +188,6 @@ namespace Timesheet.Data.Migrations
 
                     b.Property<DateTime>("Dates")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsSaved")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsSubmitted")
                         .HasColumnType("bit");
@@ -201,15 +205,20 @@ namespace Timesheet.Data.Migrations
                     b.Property<int>("TaskId")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("Times")
-                        .HasColumnType("time");
+                    b.Property<string>("Times")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WorkplaceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProjectId");
+
                     b.HasIndex("ReasonId");
+
+                    b.HasIndex("TaskId");
 
                     b.HasIndex("WorkplaceId");
 
@@ -257,19 +266,19 @@ namespace Timesheet.Data.Migrations
                 {
                     b.HasOne("Timesheet.Data.Entities.Project", "Projects")
                         .WithMany("TimesheetTracker")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Timesheet.Data.Entities.ProjectTask", "ProjectTask")
-                        .WithMany("TimesheetTracker")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Timesheet.Data.Entities.Reason", "Reason")
                         .WithMany("TimesheetTracker")
                         .HasForeignKey("ReasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Timesheet.Data.Entities.ProjectTask", "ProjectTask")
+                        .WithMany("TimesheetTracker")
+                        .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import * as moment from 'moment';
 import { ProjectService } from '../_services/project.service';
 import { AlertService } from '../_services/alert.service';
@@ -11,6 +11,7 @@ import * as $ from 'jquery'
 import 'jquery';
 import { TrackerService } from '../_services/tracker.service';
 import { TaskResponse } from '../_models/taskresponse';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-timesheettracker',
@@ -18,35 +19,66 @@ import { TaskResponse } from '../_models/taskresponse';
 })
 export class TimesheettrackerComponent implements OnInit {
    weekDays: any = [];
-   flag: boolean = true;
    projectList: any;
    lastkeydown: number = 0;
    projectData: any[] = [];
    reasonData : any[] =[];
    workplaceData:any[]=[];
    ProjectName : any ;
-   form!: FormGroup;
+   timesheetform!: FormGroup;
    timesheetTracker : TimesheetTracker[]=[];
    workplaceId : any;
    reasonId : any;
-   submitting = false;
    submitted = false;
    HeaderDate : any;
-   isSaved : boolean = false;
    isSubmitted : boolean = false;
    taskId: any;
    matchesTaskDetails : TaskResponse[] =[];
    username :any;
+   trackerList: any[]=[];
+   whrs: number =0;
+   idFieldValue : any;
+   estimationHrs : any;
+   dateVal : any;
 
-   
+   @ViewChildren("itemElement") private itemElements!: QueryList<ElementRef>;
 
   constructor(private formBuilder: FormBuilder, private projectServices:ProjectService, private alertService : AlertService,private router: Router, private route: ActivatedRoute, private trackerService : TrackerService) { 
-    
   }
 
   ngOnInit() {
     this.username =localStorage.getItem('username');
     this.ProjectName = this.route.snapshot.queryParamMap.get('ProjectName');
+
+    var currentDate = moment();
+    var weekStart = currentDate.clone().startOf('week');
+    for (let i = 0; i <= 6; i++) {
+        this.weekDays.push(moment(weekStart).add(i, 'days').format("ddd DD - MMM"));
+    };
+
+    this.timesheetform = this.formBuilder.group({
+      taskId: ['', Validators.required],
+      taskDescription: ['', Validators.required],
+      times: ['',Validators.required],
+      workplaceId : ['', Validators.required],
+      reasonId: ['',Validators.required],
+  });
+
+
+// 
+    this.projectServices.getAllReason().subscribe((res)=>{
+      this.reasonData = res
+    },
+    (error) => {
+     this.alertService.error(error);
+    });
+
+    this.projectServices.getAllWorkplace().subscribe((response)=>{
+      this.workplaceData = response
+    },
+    (error) => {
+     this.alertService.error(error);
+    });
     //Get all task name
     this.projectServices.getAllTaskName(this.ProjectName).subscribe(data => {
       Object.assign(this.projectData, data);
@@ -54,33 +86,19 @@ export class TimesheettrackerComponent implements OnInit {
     error => {
       console.log("Something wrong here");
     });
-    var currentDate = moment();
-    var weekStart = currentDate.clone().startOf('week');
-    for (let i = 0; i <= 6; i++) {
-        this.weekDays.push(moment(weekStart).add(i, 'days').format("ddd DD - MMM"));
-    };
-    console.log(this.weekDays);
-    this.form = this.formBuilder.group({
-      taskId: ['', Validators.required],
-      taskDescription: ['', Validators.required],
-      times: ['',Validators.required],
-      workplaceId : ['', Validators.required],
-      reasonId: ['',Validators.required],
-  });
+
+    // Get all timesheet tracker data by date and time
+   this.BindAllData();
+    
   }
+  get f() { return this.timesheetform.controls; }
 
-  get f() { return this.form.controls; }
-  closeModalDialog(){
-
-  }
-
-  openModalDialog()
-  {
-
-  }
+  // closeModalDialog(){
+  //   debugger;
+  //  }
+  // openModalDialog(){debugger; }
 
   getTaskNamesSearch(event: any) {
-    debugger;
     var taskNamesSearch = (<HTMLInputElement>document.getElementById('taskId')).value;
     this.projectList = [];
     var findtask = taskNamesSearch.toLowerCase();
@@ -97,24 +115,11 @@ export class TimesheettrackerComponent implements OnInit {
       if (arr[i].taskname.match(regex)) {
         var setResponce = { 
           taskname : arr[i].taskname,
-          id : arr[i].id
+          id : arr[i].id,
+          esthrs : arr[i].esthrs
         };
-        
+        this.estimationHrs = setResponce.esthrs;
         this.matchesTaskDetails.push(setResponce);
-
-        this.projectServices.getAllReason().subscribe((res)=>{
-          this.reasonData = res
-        },
-        (error) => {
-         this.alertService.error(error);
-        });
-
-        this.projectServices.getAllWorkplace().subscribe((response)=>{
-          this.workplaceData = response
-        },
-        (error) => {
-         this.alertService.error(error);
-        });
       }
     }
     return this.matchesTaskDetails;
@@ -122,12 +127,22 @@ export class TimesheettrackerComponent implements OnInit {
   
   pre(dt : any) {
     this.weekDays = this.fnWeekDays(moment(dt, "ddd DD - MMM").subtract(1, 'days'));
-    console.log("Pre date" +this.weekDays);
+    // const htmleleByWorkplaceId = document.getElementById("workplaceId") as HTMLElement;
+    // const htmleleByReasonId = document.getElementById("reasonId") as HTMLElement;
+    // const htmleleByTaskid = document.getElementById("taskId") as HTMLElement;
+    // var wid = htmleleByWorkplaceId?.id;
+    // var rid = htmleleByReasonId?.id;
+    // var tid = htmleleByTaskid?.id; 
+    // $("#"+wid).empty();
+    // $("#"+rid).empty();
+    // $("#"+tid).empty();
+    this.BindAllData();
   };
 
   next(dt: any)
   {
-    this.weekDays = this.fnWeekDays(moment(dt, "dd DD - MM").add(1, 'days'));
+    this.weekDays = this.fnWeekDays(moment(dt, "ddd DD - MM").add(1, 'days'));
+    this.BindAllData();
   }
 
   fnWeekDays(dt : any) {
@@ -144,12 +159,12 @@ export class TimesheettrackerComponent implements OnInit {
       };
       return days;
   }
-  
 
   onWorkplaceSelected(event : any)
   {
       this.workplaceId = event.target.value;
   }
+
   onReasonSelected(event:any)
   {
     this.reasonId = event.target.value;
@@ -157,20 +172,32 @@ export class TimesheettrackerComponent implements OnInit {
 
   onSubmit()
   {
-    debugger;
     this.submitted = true;
     this.alertService.clear();
-    if (this.form.invalid) {
+    if (this.timesheetform.invalid) {
       return; 
     }
 
-  }
+    if(this.timesheetTracker.length >0){
+      this.trackerService.CreatedTracker(this.timesheetTracker).subscribe({
+        next:(emp) => {
+          this.alertService.success('tracker details saved', { keepAfterRouteChange: true });
+        },
+        error: (error: any) => {
+          this.alertService.error(error);
+        }
+      });
+    }
+    else{
+      this.alertService.error("Something went wrong. not found any data!");
+    }
+}
 
   getHeaderName(e : any, Index : any)
   {
-      var table = document.getElementById("tblTimesheettracker") as HTMLTableElement;
-      var data = table.tHead?.rows[0].cells[Index].innerHTML;
-      this.HeaderDate = moment(data, 'ddd DD - MMM').format('YYYY-MM-DD');  
+    var table = document.getElementById("tblTimesheettracker") as HTMLTableElement;
+    this.dateVal = table.tHead?.rows[0].cells[Index].innerHTML;
+    this.HeaderDate = moment(this.dateVal, 'ddd DD - MMM').format('YYYY-MM-DD');  
   }
 
   Save()
@@ -178,33 +205,60 @@ export class TimesheettrackerComponent implements OnInit {
     debugger;
     this.submitted = true;
     this.alertService.clear();
-    if (this.form.invalid) {
+    if (this.timesheetform.invalid) {
       return; 
     }
-    this.isSaved = true;
-    this.isSubmitted = false;
-    const filedata = new FormData();
-    filedata.append('TaskId',this.form.value.taskId);
-    filedata.append('WorkplaceId',this.form.value.workplaceId);
-    filedata.append('ReasonId',this.form.value.reasonId);
-    filedata.append('Times',this.form.value.times);
-    filedata.append('TaskDescription',this.form.value.taskDescription);
-    filedata.append('Dates',this.HeaderDate);
-    filedata.append('ProjectId', "2");
-    filedata.append('isSaved',new Boolean(this.isSaved).toString());
-    filedata.append("CreatedBy", this.username);
-    filedata.append('IsSubmitted',new Boolean(this.isSubmitted).toString());
-    
 
-    this.trackerService.CreatedTracker(filedata).subscribe({
-      next:(emp) => {
-        this.alertService.success('tracker details saved', { keepAfterRouteChange: true });
+    this.timesheetTracker.push({
+      times: this.timesheetform.value.times,
+      taskDescription: this.timesheetform.value.taskDescription,
+      dates : this.HeaderDate,
+      isSubmitted : this.submitted,
+      taskId: this.timesheetform.value.taskId,
+      workplaceId: this.timesheetform.value.workplaceId,
+      reasonId : this.timesheetform.value.reasonId,
+      createdBy: this.username,
+      projectId: 2
+    });
+
+    this.whrs = this.timesheetform.value.times
+  }
+
+  BindAllData()
+  {
+    this.trackerService.GetAll().pipe(first()).subscribe({
+      next:(x) => {
+       let a = x.dateAndTimeDTOs;
+       let b = x.projectTaskDTOs;
+       let c = x.workplaceDTOs;
+       let d = x.reasonDTOs;
+        for(let i =0; i<= this.weekDays.length; i++){
+          const htmlElement = document.getElementById("time_"+i) as HTMLElement;
+          const htmleleByWorkplaceId = document.getElementById("workplaceId") as HTMLElement;
+          const htmleleByReasonId = document.getElementById("reasonId") as HTMLElement;
+          const htmleleByTaskid = document.getElementById("taskId") as HTMLElement;
+          var dt = moment(this.weekDays[i], 'ddd DD - MMM').format('YYYY-MM-DD');
+          for(let j=0; j< a.length; j++)
+          {
+            var getdate = moment(a[j].dates).format('YYYY-MM-DD');
+            if(dt == getdate )
+            {
+              this.idFieldValue =htmlElement?.id;
+              var wid = htmleleByWorkplaceId?.id;
+              var rid = htmleleByReasonId?.id;
+              var tid = htmleleByTaskid?.id; 
+              $("#"+ this.idFieldValue).val(a[0].times);
+              $("#"+wid).val(c.id);
+              $("#"+rid).val(d.id);
+              $("#"+tid).val(b.name);
+            }
+          }
+        }
+      //  
       },
       error: (error: any) => {
         this.alertService.error(error);
-      }
+    }
     });
-    
-
   }
 }

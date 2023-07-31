@@ -12,10 +12,12 @@ namespace Timesheet.Core.ViewModel
         public DateTime EndDate { get; set; }
         public string CreatedBy { get; set; }
         // Foreign key   
-        [Display(Name = "Project")]
+        //[Display(Name = "Project")]
         public virtual int ProjectId { get; set; }
 
-        [ForeignKey("Id")]
-        public virtual Project Projects { get; set; }
+        //[ForeignKey("Id")]
+        //public virtual Project Projects { get; set; }
+
+        public string Estimationhrs { get; set; }
     }
 }

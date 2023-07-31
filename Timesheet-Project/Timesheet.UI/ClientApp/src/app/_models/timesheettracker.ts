@@ -1,4 +1,8 @@
 ﻿import { Time } from "@angular/common";
+import { Reason } from "./reason";
+import { Workplace } from "./workplace";
+import { ProjectTask } from "./projecttask";
+import { Project } from "./project";
 
 export class TimesheetTracker {
     id?: number;
@@ -7,10 +11,24 @@ export class TimesheetTracker {
     projectId?:number;
     workplaceId?:number;
     reasonId?:number;
-    date?:Date;
-    times?:Time;
+    dates?:Date;
+    times?:string;
     createdBy?:string;
-    createdOn?:Date;
-    isSaved?:boolean;
     isSubmitted?:boolean;
+    // timesheetTrackerD?:TimesheetTrackerD;
 }
+
+// export class TimesheetTrackerD{
+//     reason?: Reason;
+//     workplace?:Workplace;
+//     projecttask?:ProjectTask;
+//     project?:Project;
+//     dateAndTimeDTO?:DateAndTimeDTO;
+// }
+
+// export class DateAndTimeDTO
+// {
+//     dates?:Date;
+//     times?:string;
+//    description?:string;
+// }

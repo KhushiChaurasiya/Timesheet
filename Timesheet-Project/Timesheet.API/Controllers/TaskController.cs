@@ -42,7 +42,7 @@ namespace Timesheet.API.Controllers
         [Route("PostProjectTask")]
         public async Task<IActionResult> PostProjectTask([FromForm] ProjectTaskDTO task)
         {
-            _repository.Task.ValidateTaskDuplication(task.ProjectId, task.TaskName); 
+            _repository.Task.ValidateTaskDuplication(task.ProjectId, task.TaskName);
             var entity = new ProjectTask
             {
                 TaskName = task.TaskName,
@@ -51,6 +51,7 @@ namespace Timesheet.API.Controllers
                 StartDate = task.StartDate,
                 EndDate = task.EndDate,
                 CreatedBy = task.CreatedBy,
+                Estimationhrs = task.Estimationhrs
             };
             await _repository.Task.Create(entity);
             return Ok(task);

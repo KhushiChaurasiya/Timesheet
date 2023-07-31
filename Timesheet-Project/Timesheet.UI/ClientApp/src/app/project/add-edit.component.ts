@@ -50,6 +50,7 @@ export class AddEditComponent implements OnInit {
           .pipe(first())
           .subscribe({
             next:(x) => {
+              debugger;
               this.proDetails = x;
              this.form.patchValue(x);
             //  this.form.controls['startDate'].setValue(formatDate(this.proDetails.startDate,'yyyy-mm-dd','en'));

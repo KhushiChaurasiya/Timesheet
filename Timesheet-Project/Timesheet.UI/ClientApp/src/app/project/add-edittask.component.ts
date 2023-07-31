@@ -38,7 +38,8 @@ export class AddEdittaskComponent implements OnInit {
       taskDescription: ['',Validators.required],
       startDate : ['', Validators.required],
       endDate: ['',Validators.required],
-      projectId : ['', Validators.required]
+      projectId : ['', Validators.required],
+      estimationhrs :['',Validators.required]
      },{validators:this.checkDates});
 
  this.projectService.getAll().subscribe((data) => { 
@@ -75,6 +76,7 @@ export class AddEdittaskComponent implements OnInit {
   }
 
   private saveTask() {
+    debugger;
       const filedata = new FormData();
       if( this.id != null){
         filedata.append('Id', this.id);
@@ -85,6 +87,7 @@ export class AddEdittaskComponent implements OnInit {
       filedata.append('endDate',this.form.value.endDate);
       filedata.append('createdBy',this.username);
       filedata.append('projectId', this.form.value.projectId);
+      filedata.append('estimationhrs', this.form.value.estimationhrs);
       return this.id
           ? this.projectService.putTask(this.id, filedata)
           : this.projectService.CreateTask(filedata)

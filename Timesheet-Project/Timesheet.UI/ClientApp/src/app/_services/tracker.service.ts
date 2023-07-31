@@ -15,4 +15,9 @@ export class TrackerService {
     debugger;
     return this.http.post<any>(`${environment.apiUrl}/api/TimesheetTracker`, tracker);
   }
+
+  GetAll()
+  {
+    return this.http.get<any>(`${environment.apiUrl}/api/TimesheetTracker`);
+  }
 }

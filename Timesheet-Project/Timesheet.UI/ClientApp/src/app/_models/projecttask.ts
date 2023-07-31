@@ -3,6 +3,7 @@
     taskName?: string;
     taskDescription?: string;
     projectId?:number;
+    estimationhrs?:string;
     startDate?:Date;
     endDate?:Date;
     createdBy?:string;

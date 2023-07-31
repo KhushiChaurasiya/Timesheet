@@ -42,11 +42,8 @@ namespace Timesheet.Data.Entities
         [ForeignKey("Id")]
         public virtual Reason Reason { get; set; }
         public DateTime Dates { get; set;}
-
-        [DataType(DataType.Time)]
-        public TimeSpan Times { get; set;}
+        public string Times { get; set;}
         public string CreatedBy { get; set;}
-        public bool IsSaved { get; set;}
         public bool IsSubmitted { get; set;}
 
     }

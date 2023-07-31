@@ -22,7 +22,7 @@ namespace Timesheet.Data
         public DbSet<Project>? Project { get; set; }
         public DbSet<ProjectTask>? ProjectTask { get; set; }
         public DbSet<Workplace>? Workplace { get; set; }
-        //public DbSet<Reason>? Reason { get; set; } 
+        public DbSet<Reason>? Reason { get; set; } 
         public DbSet<TimesheetTracker>? TimesheetTracker { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

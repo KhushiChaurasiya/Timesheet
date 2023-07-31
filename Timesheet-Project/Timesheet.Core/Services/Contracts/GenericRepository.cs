@@ -101,7 +101,6 @@ namespace Timesheet.Data.Repository
         {
             DbSet<ProjectTask>? res = _context.ProjectTask;
             var Obj = res.Include(_ => _.Projects).ToList();
-            //var res = await _context.ProjectTask.Include(_ => _.Projects).ToListAsync();
             if (Obj != null) return Obj;
             else return null;
         }
@@ -112,7 +111,7 @@ namespace Timesheet.Data.Repository
             if (ProId != null)
             {
                 var ProjectTaskList = _context.ProjectTask?.Where(a => a.ProjectId == ProId.Id).ToList();
-                var Obj = ProjectTaskList?.Select(x => new TaskResponse() {Taskname= x.TaskName.ToLower(), Id= x.Id }).ToList();
+                var Obj = ProjectTaskList?.Select(x => new TaskResponse() {Taskname= x.TaskName.ToLower(), Id= x.Id, esthrs= x.Estimationhrs }).ToList();
                 if (Obj != null) return Obj;
             }
             return null;
@@ -126,5 +125,14 @@ namespace Timesheet.Data.Repository
                 throw new DuplicateNameException("Task is already exists");
             }
         }
+
+        public async Task<List<TimesheetTracker>> GetAllTimesheet()
+        {
+            DbSet<TimesheetTracker>? res = _context.TimesheetTracker;
+            var Obj = res.Include(_ => _.Projects).Include(w=>w.Workplace).Include(r=>r.Reason).Include(t=>t.ProjectTask).OrderBy(x=>x.Dates).ToList();
+            if (Obj != null) return Obj;
+            else return null;
+        }
+
     }
 }

@@ -10,5 +10,6 @@ namespace Timesheet.Data.Model
     {
         public int Id { get; set; }
         public string Taskname { get; set; }
+        public string esthrs { get; set; }
     }
 }

@@ -17,5 +17,7 @@ namespace Timesheet.Data.Repository.Contracts
         public void ValidateByIDAndName(string name, string ProjectId);
 
         public void ValidateTaskDuplication(int projectId, string taskName);
+        public Task<List<TimesheetTracker>> GetAllTimesheet();
+
     }
 }
