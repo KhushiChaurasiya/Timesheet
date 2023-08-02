@@ -12,6 +12,7 @@ import 'jquery';
 import { TrackerService } from '../_services/tracker.service';
 import { TaskResponse } from '../_models/taskresponse';
 import { first } from 'rxjs';
+import * as bootstrap from "bootstrap";
 
 @Component({
   selector: 'app-timesheettracker',
@@ -264,5 +265,11 @@ export class TimesheettrackerComponent implements OnInit {
   });
  });
 
+ $(document).ready(function () {
+  $(document).on("click", "#modalSave", function(event){
+    $('#exampleModal').removeClass('show');
+    $(this).addClass('hide');
+ });
+});
 
 

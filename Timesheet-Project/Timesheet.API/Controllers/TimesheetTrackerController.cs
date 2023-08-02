@@ -51,13 +51,6 @@ namespace Timesheet.API.Controllers
             return Ok(dto);
         }
 
-        //// GET api/<TimesheetTrackerController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
         // POST api/<TimesheetTrackerController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] List<TimesheetTrackerDTO> trackerData)
