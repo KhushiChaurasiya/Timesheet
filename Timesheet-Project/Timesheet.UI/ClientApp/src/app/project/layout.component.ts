@@ -14,6 +14,7 @@ export class LayoutComponent implements OnInit {
   }
   logout()
   {
+    debugger;
     localStorage.removeItem('username');
     localStorage.removeItem('email');
 

@@ -6,6 +6,7 @@ namespace Timesheet.Core.ViewModel
 {
     public class ProjectTaskDTO
     {
+        public int Id { get; set; }
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
         public DateTime StartDate { get; set; }

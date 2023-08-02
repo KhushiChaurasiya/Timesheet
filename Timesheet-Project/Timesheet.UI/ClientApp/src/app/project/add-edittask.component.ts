@@ -4,6 +4,7 @@ import { AlertService } from '../_services/alert.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../_services/project.service';
 import { Project } from '../_models/project';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-edittask',
@@ -21,12 +22,26 @@ export class AddEdittaskComponent implements OnInit {
   projectDetails : Project[] =[];
   dateValid : boolean =true;
 
-  checkDates(group: FormGroup) {
-    if(group.controls['endDate'].value <= group.controls['startDate'].value) {
+dateLessThan(StartDate: string, EndDate: string) {
+  return (group: FormGroup): {[key: string]: any} => {
+   let f = group.controls[StartDate];
+   let t = group.controls[EndDate];
+   if(f.value != "" && t.value != ""){
+   var myDate = new Date();
+   var plusSeven = moment(new Date(myDate.setDate(myDate.getDate() + 7))).format('YYYY-MM-DD');
+   if (f.value > t.value) {
     return { notValid:true }
+   }
+   else{
+    if (t.value <= plusSeven) {
+      return { notValid:true }
+     }
     }
-    return null;
+   }
+   return {};
+  }
  }
+
 
   constructor(private formBuilder: FormBuilder, private projectService : ProjectService, private alertService : AlertService, private route: ActivatedRoute, private router: Router) { }
 
@@ -40,7 +55,7 @@ export class AddEdittaskComponent implements OnInit {
       endDate: ['',Validators.required],
       projectId : ['', Validators.required],
       estimationhrs :['',Validators.required]
-     },{validators:this.checkDates});
+     },{validators:this.dateLessThan('startDate', 'endDate')});
 
  this.projectService.getAll().subscribe((data) => { 
             this.projectDetails = data;
@@ -72,11 +87,9 @@ export class AddEdittaskComponent implements OnInit {
         this.alertService.error(error);
       }
     });
-    // this.alertService.error(error)
   }
 
   private saveTask() {
-    debugger;
       const filedata = new FormData();
       if( this.id != null){
         filedata.append('Id', this.id);

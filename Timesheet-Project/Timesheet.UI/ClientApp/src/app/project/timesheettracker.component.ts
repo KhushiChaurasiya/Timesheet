@@ -36,12 +36,9 @@ export class TimesheettrackerComponent implements OnInit {
    matchesTaskDetails : TaskResponse[] =[];
    username :any;
    trackerList: any[]=[];
-   whrs: number =0;
    idFieldValue : any;
    estimationHrs : any;
    dateVal : any;
-
-   @ViewChildren("itemElement") private itemElements!: QueryList<ElementRef>;
 
   constructor(private formBuilder: FormBuilder, private projectServices:ProjectService, private alertService : AlertService,private router: Router, private route: ActivatedRoute, private trackerService : TrackerService) { 
   }
@@ -62,10 +59,8 @@ export class TimesheettrackerComponent implements OnInit {
       times: ['',Validators.required],
       workplaceId : ['', Validators.required],
       reasonId: ['',Validators.required],
-  });
+    });
 
-
-// 
     this.projectServices.getAllReason().subscribe((res)=>{
       this.reasonData = res
     },
@@ -81,6 +76,7 @@ export class TimesheettrackerComponent implements OnInit {
     });
     //Get all task name
     this.projectServices.getAllTaskName(this.ProjectName).subscribe(data => {
+      debugger;
       Object.assign(this.projectData, data);
     },
     error => {
@@ -92,11 +88,6 @@ export class TimesheettrackerComponent implements OnInit {
     
   }
   get f() { return this.timesheetform.controls; }
-
-  // closeModalDialog(){
-  //   debugger;
-  //  }
-  // openModalDialog(){debugger; }
 
   getTaskNamesSearch(event: any) {
     var taskNamesSearch = (<HTMLInputElement>document.getElementById('taskId')).value;
@@ -127,15 +118,6 @@ export class TimesheettrackerComponent implements OnInit {
   
   pre(dt : any) {
     this.weekDays = this.fnWeekDays(moment(dt, "ddd DD - MMM").subtract(1, 'days'));
-    // const htmleleByWorkplaceId = document.getElementById("workplaceId") as HTMLElement;
-    // const htmleleByReasonId = document.getElementById("reasonId") as HTMLElement;
-    // const htmleleByTaskid = document.getElementById("taskId") as HTMLElement;
-    // var wid = htmleleByWorkplaceId?.id;
-    // var rid = htmleleByReasonId?.id;
-    // var tid = htmleleByTaskid?.id; 
-    // $("#"+wid).empty();
-    // $("#"+rid).empty();
-    // $("#"+tid).empty();
     this.BindAllData();
   };
 
@@ -182,6 +164,7 @@ export class TimesheettrackerComponent implements OnInit {
       this.trackerService.CreatedTracker(this.timesheetTracker).subscribe({
         next:(emp) => {
           this.alertService.success('tracker details saved', { keepAfterRouteChange: true });
+          this.BindAllData();
         },
         error: (error: any) => {
           this.alertService.error(error);
@@ -202,26 +185,35 @@ export class TimesheettrackerComponent implements OnInit {
 
   Save()
   {
-    debugger;
+    var TaskIddata;
     this.submitted = true;
     this.alertService.clear();
     if (this.timesheetform.invalid) {
       return; 
     }
 
-    this.timesheetTracker.push({
-      times: this.timesheetform.value.times,
-      taskDescription: this.timesheetform.value.taskDescription,
-      dates : this.HeaderDate,
-      isSubmitted : this.submitted,
-      taskId: this.timesheetform.value.taskId,
-      workplaceId: this.timesheetform.value.workplaceId,
-      reasonId : this.timesheetform.value.reasonId,
-      createdBy: this.username,
-      projectId: 2
-    });
-
-    this.whrs = this.timesheetform.value.times
+   for(let i =0; i<= this.projectData.length; i++)
+   {
+    var taskvalue = this.timesheetform.value.taskId.toLocaleLowerCase()
+    var d = this.projectData[i].taskname == taskvalue;
+    if(d)
+    {
+      TaskIddata = this.projectData[i].id;
+     
+      this.timesheetTracker.push({
+        times: this.timesheetform.value.times,
+        taskDescription: this.timesheetform.value.taskDescription,
+        dates : this.HeaderDate,
+        isSubmitted : this.submitted,
+        taskId: TaskIddata,
+        workplaceId: this.timesheetform.value.workplaceId,
+        reasonId : this.timesheetform.value.reasonId,
+        createdBy: this.username,
+        projectId: 2
+      });
+      return;
+    }
+   }
   }
 
   BindAllData()
@@ -232,33 +224,45 @@ export class TimesheettrackerComponent implements OnInit {
        let b = x.projectTaskDTOs;
        let c = x.workplaceDTOs;
        let d = x.reasonDTOs;
-        for(let i =0; i<= this.weekDays.length; i++){
-          const htmlElement = document.getElementById("time_"+i) as HTMLElement;
-          const htmleleByWorkplaceId = document.getElementById("workplaceId") as HTMLElement;
-          const htmleleByReasonId = document.getElementById("reasonId") as HTMLElement;
-          const htmleleByTaskid = document.getElementById("taskId") as HTMLElement;
-          var dt = moment(this.weekDays[i], 'ddd DD - MMM').format('YYYY-MM-DD');
-          for(let j=0; j< a.length; j++)
-          {
-            var getdate = moment(a[j].dates).format('YYYY-MM-DD');
-            if(dt == getdate )
+       if(this.ProjectName == x.projectDTOs.name){
+          for(let i =0; i<= this.weekDays.length; i++){
+            const htmlElement = document.getElementById("time_"+i) as HTMLElement;
+            const htmldescriptionEle = document.getElementById("description_"+i) as HTMLElement;
+            const htmlestimationhrs = document.getElementById("estimationhrs") as HTMLElement;
+            var dt = moment(this.weekDays[i], 'ddd DD - MMM').format('YYYY-MM-DD');
+            for(let j=0; j< a.length; j++)
             {
-              this.idFieldValue =htmlElement?.id;
-              var wid = htmleleByWorkplaceId?.id;
-              var rid = htmleleByReasonId?.id;
-              var tid = htmleleByTaskid?.id; 
-              $("#"+ this.idFieldValue).val(a[0].times);
-              $("#"+wid).val(c.id);
-              $("#"+rid).val(d.id);
-              $("#"+tid).val(b.name);
+              var getdate = moment(a[j].dates).format('YYYY-MM-DD');
+              if(dt == getdate )
+              {
+                this.idFieldValue =htmlElement?.id;
+                var esthrs= htmlestimationhrs?.id;
+                $("#"+ this.idFieldValue).val(a[j].times);
+                $("#"+htmldescriptionEle.id).val(a[j].description);
+                $("#"+esthrs).val(b.estimationhrs)
+            
+                this.timesheetform.get("workplaceId")?.setValue(x.workplaceDTOs.id);
+                this.timesheetform.get("reasonId")?.setValue(x.reasonDTOs.id);
+                this.timesheetform.get("taskId")?.setValue(x.projectTaskDTOs.taskName);
+              }
             }
           }
         }
-      //  
       },
       error: (error: any) => {
         this.alertService.error(error);
-    }
+      }
     });
   }
 }
+
+
+ $(document).ready(function () {
+       $(document).on("click", ".times", function(event){
+      $("#times").val(event.currentTarget.value);
+      $("#description").val(event.currentTarget.nextElementSibling.value);
+  });
+ });
+
+
+

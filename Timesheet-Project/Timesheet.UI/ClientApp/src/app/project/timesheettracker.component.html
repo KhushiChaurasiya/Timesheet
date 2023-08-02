@@ -27,7 +27,7 @@
         <tr>
             <td><input type="text" class="form-control" (keyup)="getTaskNamesSearch($event)" id="taskId" list="dynmicTaskIds" formControlName="taskId" [ngClass]="{ 'is-invalid': submitted && f['taskId'].errors }"/>
                 <datalist id="dynmicTaskIds">
-                   <option *ngFor="let item of projectList" [value]="item.id">#{{item.id}} - {{item.taskname}}</option>
+                   <option *ngFor="let item of projectList" [value]="item.taskname">#{{item.id}} - {{item.taskname}}</option>
                 </datalist>
                 <div *ngIf="submitted && f['taskId'].errors" class="invalid-feedback">
                     <div *ngIf="f['taskId'].errors && f['taskId'].errors['required']"></div>
@@ -61,7 +61,8 @@
                 </div>
             </td>
             <td *ngFor="let item of weekDays; let i = index">
-                <input type="text" id="{{'time_'+ i}}" formControlName="times" class="form-control times open-dialog" data-bs-toggle="modal" (click)="getHeaderName($event, i+4)" data-bs-target="#exampleModal" style="width: 50%;">
+                <input type="text" id="{{'time_'+ i}}" formControlName="times" class="form-control times" data-bs-toggle="modal" (click)="getHeaderName($event, i+4)" data-bs-target="#exampleModal" style="width: 50%;">
+                <input type="hidden" id="{{'description_'+i}}" class="form-control descri" name="desc"/>
             </td>
             <button type="submit" class="btn btn-primary form-control">Save All</button> 
         </tr>
@@ -81,16 +82,13 @@
             </div>
                 <div class="row g-3 align-items-center">
                 <div class="col-auto">
-                  <label for="time" class="col-form-label">Time</label>
+                  <label for="time" class="col-form-label">Time</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div class="col-auto modal-body" >
-                    <!-- Mon 31 - Jul -->
-                    <!-- <div *ngIf="item =='{{dateVal}}'"> -->
-                    <input type="text" class="form-control" formControlName="times" id="times" value="" [ngClass]="{ 'is-invalid': submitted && f['times'].errors }"/>
+                    <input type="text" class="form-control" formControlName="times" id="times" value="" style="width: 80px;" [ngClass]="{ 'is-invalid': submitted && f['times'].errors }"/>
                     <div *ngIf="submitted && f['times'].errors" class="invalid-feedback">
                         <div *ngIf="f['times'].errors && f['times'].errors['required']"></div>
                     </div>
-                    <!-- </div> -->
                 </div>
                 </div>
                 <div class="row g-3 align-items-center">
@@ -98,7 +96,7 @@
                   <label for="taskDescription" class="col-form-label">Description</label>
                 </div>
                 <div class="col-auto">
-                    <textarea id="form4Example3" class="form-control" rows="4" formControlName="taskDescription" [ngClass]="{ 'is-invalid': submitted && f['taskDescription'].errors }"></textarea>   
+                    <textarea id="form4Example3" class="form-control" rows="4" cols="48" id="description" value="" formControlName="taskDescription" [ngClass]="{ 'is-invalid': submitted && f['taskDescription'].errors }"></textarea>   
                     <div *ngIf="submitted && f['taskDescription'].errors" class="invalid-feedback">
                         <div *ngIf="f['taskDescription'].errors && f['taskDescription'].errors['required']"></div>
                     </div>

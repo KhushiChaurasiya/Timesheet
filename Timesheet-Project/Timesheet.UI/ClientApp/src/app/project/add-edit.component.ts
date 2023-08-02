@@ -21,16 +21,36 @@ export class AddEditComponent implements OnInit {
   submitting = false;
   proDetails : any =[];
   dateValid : boolean =true;
+  date : any;
 
-  checkDates(group: FormGroup) {
-    if(group.controls['endDate'].value <= group.controls['startDate'].value) {
-    return { notValid:true }
+dateLessThan(StartDate: string, EndDate: string) {
+
+  
+      return (group: FormGroup): {[key: string]: any} => {
+     
+      let f = group.controls[StartDate];
+      let t = group.controls[EndDate];
+      if(f.value != "" && t.value != ""){
+      var myDate = new Date();
+      var plusSeven = moment(new Date(myDate.setDate(myDate.getDate() + 7))).format('YYYY-MM-DD');
+      if (f.value > t.value) {
+        return { notValid:true }
+      }
+      else{
+        if (t.value <= plusSeven) {
+          return { notValid:true }
+        }
+      }
     }
-    return null;
+    return {};
+    }
+  
  }
+
   constructor(private formBuilder: FormBuilder, private projectService : ProjectService, private alertService : AlertService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.date = new Date().toISOString().slice(0, 10);
     this.username =localStorage.getItem('username');
     this.id = this.route.snapshot.params['id'];
     this.form = this.formBuilder.group({
@@ -39,7 +59,7 @@ export class AddEditComponent implements OnInit {
       description: ['',Validators.required],
       startDate : ['', Validators.required],
       endDate: ['',Validators.required]
-  },{validators:this.checkDates});
+  },{validators:this.dateLessThan('startDate', 'endDate')});
   
 
   this.title = 'Add Project';
