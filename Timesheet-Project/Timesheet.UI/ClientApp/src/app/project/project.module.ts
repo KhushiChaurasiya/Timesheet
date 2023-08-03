@@ -9,6 +9,8 @@ import { TimesheettrackerComponent } from './timesheettracker.component';
 import { ProjecttaskComponent } from './projecttask.component';
 import { AddEdittaskComponent } from './add-edittask.component';
 import { DynamictrackerComponent } from './dynamictracker.component';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FieldsetModule } from "primeng/fieldset";
 
 
 
@@ -24,8 +26,10 @@ import { DynamictrackerComponent } from './dynamictracker.component';
   ],
   imports: [
     CommonModule,
+    FieldsetModule,
     ReactiveFormsModule,
     ProjectRoutingModule
+    // BrowserAnimationsModule
   ]
 })
 export class ProjectModule { }

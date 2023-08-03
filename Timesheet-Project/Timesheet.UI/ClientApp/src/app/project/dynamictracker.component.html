@@ -1,2 +1,72 @@
-<p>dynamictracker works!</p>
-<a title="Add a new Row">Add</a>
+<div class="container">  
+    <form [formGroup]="timesheetform" (ngSubmit)="onSubmit()">        
+      <table class="table table-bordered" formArrayName="timesheets">  
+        <thead>
+          <tr>
+            <th>Tasks</th>
+            <th>Est Hrs</th>
+            <th>Work Place</th>
+            <th>Reason</th>
+            <th *ngFor="let item of weekDays">{{item}}</th>
+            <th></th>
+         <tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let quantity of timesheets().controls; let i=index" [formGroupName]="i">  
+        <td>
+            <input type="text" class="form-control" (keyup)="getTaskNamesSearch($event)" id="taskId" list="dynmicTaskIds" formControlName="taskId" [ngClass]="{ 'is-invalid': submitted && f['taskId'].errors }"/>
+            <datalist id="dynmicTaskIds">
+               <option *ngFor="let item of projectList" [value]="item.taskname">#{{item.id}} - {{item.taskname}}</option>
+            </datalist>
+            <div *ngIf="submitted && f['taskId'].errors" class="invalid-feedback">
+                <div *ngIf="f['taskId'].errors && f['taskId'].errors['required']"></div>
+            </div>
+        </td>
+        <td>
+            <input type="text" class="form-control" formControlName="estimationhrs" id="estimationhrs" value="{{estimationHrs}}" />
+        </td>
+        <td>
+            <select class="form-control" id="workplaceId" (change)='onWorkplaceSelected($event)' formControlName="workplaceId" [ngClass]="{ 'is-invalid': submitted && f['workplaceId'].errors }">
+                <option selected>Choose a workplace</option>
+                <option *ngFor="let wor of workplaceData; let i = index" [value]="wor.id">
+                  {{wor.name}}
+                </option>
+              </select>
+
+              <div *ngIf="submitted && f['workplaceId'].errors" class="invalid-feedback">
+                <div *ngIf="f['workplaceId'].errors && f['workplaceId'].errors['required']"></div>
+            </div>
+        </td>
+        <td>
+            <select class="form-control" id="reasonId" (change)='onReasonSelected($event)' formControlName="reasonId" [ngClass]="{ 'is-invalid': submitted && f['reasonId'].errors }">
+                <option default>Choose a reason</option>
+                <option *ngFor="let res of reasonData; let i = index" [value]="res.id">
+                  {{res.name}}
+                </option>
+              </select>
+
+              <div *ngIf="submitted && f['reasonId'].errors" class="invalid-feedback">
+                <div *ngIf="f['reasonId'].errors && f['reasonId'].errors['required']"></div>
+            </div>
+        </td>
+        <td *ngFor="let item of weekDays; let i = index">
+            <input type="text" id="{{'time_'+ i}}" formControlName="times" class="form-control times" data-bs-toggle="modal" (click)="getHeaderName($event, i+4)" data-bs-target="#exampleModal" style="width: 50%;">
+            <input type="hidden" id="{{'description_'+i}}" class="form-control descri" name="desc"/>
+        </td>
+        <td>
+        <button type="submit" class="btn btn-primary form-control">Save All</button> 
+        </td>
+        </tr>  
+        <tr>  
+          <th width="150px"><button type="button" (click)="addTimesheet()" class="btn btn-primary">Add More</button></th>  
+        </tr> 
+      </tbody>
+      </table>  
+       
+      <button type="submit" class="btn btn-success">Submit</button>  
+        
+    </form>  
+        
+    <br/>  
+    {{this.timesheetform.value | json}}  
+  </div>  

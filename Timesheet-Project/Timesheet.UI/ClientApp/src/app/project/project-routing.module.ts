@@ -7,18 +7,20 @@ import { LayoutComponent } from './layout.component';
 import { TimesheettrackerComponent } from './timesheettracker.component';
 import { ProjecttaskComponent } from './projecttask.component';
 import { AddEdittaskComponent } from './add-edittask.component';
+import { DynamictrackerComponent } from './dynamictracker.component';
 
 const routes: Routes = [
   {
       path: '', component: LayoutComponent,
       children: [
           { path:'projectlist', component:ListComponent },
-          { path: 'add', component: AddEditComponent },
-          { path: 'edit/:id', component: AddEditComponent },
-          { path : 'Timesheet', component: TimesheettrackerComponent },
+          { path:'add', component: AddEditComponent },
+          { path:'edit/:id', component: AddEditComponent },
+          { path:'Timesheet', component: TimesheettrackerComponent },
           { path:'tasklist', component:ProjecttaskComponent},
-          { path: 'addtask', component: AddEdittaskComponent },
-          { path: 'edittask/:id', component: AddEdittaskComponent },
+          { path:'addtask', component: AddEdittaskComponent },
+          { path:'edittask/:id', component: AddEdittaskComponent },
+          { path:'dynamic', component:DynamictrackerComponent }
       ]
   },
   

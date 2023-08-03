@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,19 +9,20 @@ import { AlertComponent } from './_components/alert.component';
 import { HomeComponent } from './home/home.component';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     AlertComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule,
-    
+    AppRoutingModule    
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
