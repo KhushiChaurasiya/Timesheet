@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-outline mb-4">
                       <label class="form-label" for="form2Example17">Email address</label>
-                      <input type="email" id="form2Example17" formControlName="emailId" [pattern]="emailPattern" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['emailId'].errors }" />
+                      <input type="text" id="form2Example17" formControlName="emailId"  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['emailId'].errors }" />
                       <div  *ngIf="submitted && f['emailId'].errors" class="invalid-feedback">
                         <div *ngIf="f['emailId'].errors['required']">Email is required</div>
                         <div *ngIf="f['emailId'].errors['pattern']">Email must be a valid email address</div>

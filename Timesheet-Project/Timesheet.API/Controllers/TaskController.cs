@@ -37,6 +37,15 @@ namespace Timesheet.API.Controllers
             return Ok(response);
         }
 
+
+        [HttpGet]
+        [Route("GetByTaskName")]
+        public async Task<IActionResult> GetByTaskName(string taskname)
+        {
+            var response = _repository.Task.GetByProjectName(taskname);
+            return Ok(response);
+        }
+
         // POST api/<TaskController>
         [HttpPost]
         [Route("PostProjectTask")]

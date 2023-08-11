@@ -53,7 +53,6 @@ D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timeshe
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.AssemblyInfoInputs.cache
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.AssemblyInfo.cs
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.csproj.CoreCompileInputs.cache
-D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.MvcApplicationPartsAssemblyInfo.cs
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.MvcApplicationPartsAssemblyInfo.cache
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\staticwebassets\msbuild.Timesheet.API.Microsoft.AspNetCore.StaticWebAssets.props
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\staticwebassets\msbuild.build.Timesheet.API.props
@@ -69,3 +68,4 @@ D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\refint\
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.pdb
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.genruntimeconfig.cache
 D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\ref\Timesheet.API.dll
+D:\PIPProject.Timesheet\Timesheet-Project\Timesheet.API\obj\Debug\net6.0\Timesheet.API.MvcApplicationPartsAssemblyInfo.cs

@@ -24,26 +24,24 @@ export class AddEditComponent implements OnInit {
   date : any;
 
 dateLessThan(StartDate: string, EndDate: string) {
-
+  return (group: FormGroup): {[key: string]: any} => {
   
-      return (group: FormGroup): {[key: string]: any} => {
-     
-      let f = group.controls[StartDate];
-      let t = group.controls[EndDate];
-      if(f.value != "" && t.value != ""){
-      var myDate = new Date();
-      var plusSeven = moment(new Date(myDate.setDate(myDate.getDate() + 7))).format('YYYY-MM-DD');
-      if (f.value > t.value) {
-        return { notValid:true }
-      }
-      else{
-        if (t.value <= plusSeven) {
-          return { notValid:true }
-        }
-      }
+  let f = group.controls[StartDate];
+  let t = group.controls[EndDate];
+  if(f.value != "" && t.value != ""){
+  var myDate = new Date();
+  var plusSeven = moment(new Date(myDate.setDate(myDate.getDate() + 7))).format('YYYY-MM-DD');
+  if (f.value > t.value) {
+    return { notValid:true }
+  }
+  else{
+    if (t.value <= plusSeven) {
+      return { notValid:true }
     }
-    return {};
-    }
+  }
+}
+return {};
+}
   
  }
 

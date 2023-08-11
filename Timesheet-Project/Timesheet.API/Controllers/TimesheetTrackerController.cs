@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Timesheet.Core.ViewModel;
 using Timesheet.Data;
@@ -27,9 +28,9 @@ namespace Timesheet.API.Controllers
 
         // GET: api/<TimesheetTrackerController>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string Username)
         {
-            var response = await _repository.TimesheetTracker.GetAllTimesheet();
+            var response = await _repository.TimesheetTracker.GetAllTimesheet(Username);
 
             TimesheetTrackerAllDTO dto = new TimesheetTrackerAllDTO();
             List<DateAndTimeDTO>  dateAndTimeDTO = new List<DateAndTimeDTO>();  
@@ -43,12 +44,22 @@ namespace Timesheet.API.Controllers
                 {
                     Dates = item.Dates,
                     Times = item.Times,
-                    Description = item.TaskDescription
+                    Description = item.TaskDescription,
+                    isSubmitted = item.IsSubmitted,
+                    CreatedBy = item.CreatedBy,
                 };
                 dateAndTimeDTO.Add(dto2);
             }
             dto.DateAndTimeDTOs = dateAndTimeDTO;   
             return Ok(dto);
+        }
+
+
+        [HttpGet("{dates}")]
+        public async Task<IActionResult> Get(DateTime dates)
+        {
+            var response = _repository.Task.GetByDates(dates);
+            return Ok(response);
         }
 
         // POST api/<TimesheetTrackerController>
@@ -78,8 +89,27 @@ namespace Timesheet.API.Controllers
 
         // PUT api/<TimesheetTrackerController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] List<TimesheetTrackerDTO> trackerData)
         {
+            foreach (var tracker in trackerData)
+            {
+                var entity = new TimesheetTracker
+                {
+                    Id = tracker.Id,
+                    ProjectId = tracker.ProjectId,
+                    TaskId = tracker.TaskId,
+                    TaskDescription = tracker.TaskDescription,
+                    ReasonId = tracker.ReasonId,
+                    WorkplaceId = tracker.WorkplaceId,
+                    Dates = tracker.Dates,
+                    Times = tracker.Times,
+                    CreatedBy = tracker.CreatedBy,
+                    IsSubmitted = tracker.IsSubmitted
+                };
+
+                _repository.TimesheetTracker.Update(entity);
+            }
+            return Ok(trackerData);
         }
 
         // DELETE api/<TimesheetTrackerController>/5

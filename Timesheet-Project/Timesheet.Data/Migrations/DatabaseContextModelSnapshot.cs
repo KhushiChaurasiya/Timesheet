@@ -30,11 +30,6 @@ namespace Timesheet.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
 

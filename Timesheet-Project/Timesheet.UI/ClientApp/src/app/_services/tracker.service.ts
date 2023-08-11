@@ -16,8 +16,23 @@ export class TrackerService {
     return this.http.post<any>(`${environment.apiUrl}/api/TimesheetTracker`, tracker);
   }
 
-  GetAll()
+  GetAll(username : any)
   {
-    return this.http.get<any>(`${environment.apiUrl}/api/TimesheetTracker`);
+    return this.http.get<any>(`${environment.apiUrl}/api/TimesheetTracker?Username=${username}`);
+  }
+
+  GetByDate(dates :Date)
+  {
+    return this.http.get<any>(`${environment.apiUrl}/api/TimesheetTracker/${dates}`);
+  }
+
+  updateTracker(id:any,tracker: any) : Observable<any>{  
+    debugger;
+    return this.http.put<any>(`${environment.apiUrl}/api/TimesheetTracker/${id}`, tracker);
+  }
+
+  GetBtProject(proName : any)
+  {
+    return this.http.get<any>(`${environment.apiUrl}/api/Task/GetByTaskName?taskname=${proName}`);
   }
 }

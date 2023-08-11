@@ -17,6 +17,7 @@ namespace Timesheet.Core.ViewModel
         public ReasonDTO ReasonDTOs { get; set; }
 
         public ProjectTaskDTO ProjectTaskDTOs { get; set; }
+
         public List<DateAndTimeDTO> DateAndTimeDTOs { get; set; }
 
     }
@@ -27,6 +28,8 @@ namespace Timesheet.Core.ViewModel
         public DateTime Dates { get; set; }
         public string Times { get; set; }
         public string Description { get; set; }
+        public bool isSubmitted { get; set; }
+        public string CreatedBy { get; set; }
     }
 
     public class WorkplacebyIdDTO

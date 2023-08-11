@@ -15,8 +15,6 @@ namespace Timesheet.Data.Entities
         [Required]
         [StringLength(50)]
         public string EmailId { get; set; }
-        [Required]
-        [StringLength(50)]
-        public string CreatedBy { get; set; }
+
     }
 }

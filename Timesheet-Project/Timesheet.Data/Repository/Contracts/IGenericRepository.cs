@@ -14,10 +14,13 @@ namespace Timesheet.Data.Repository.Contracts
         public Task<List<ProjectTask>> GetAllTask();
         public Task<List<TaskResponse>> GetAllTaskName(string ProjectName);
 
+        public Task<Project> GetByProjectName(string proName);
+
         public void ValidateByIDAndName(string name, string ProjectId);
 
         public void ValidateTaskDuplication(int projectId, string taskName);
-        public Task<List<TimesheetTracker>> GetAllTimesheet();
+        public Task<List<TimesheetTracker>> GetAllTimesheet(string username);
+        public List<TimesheetTracker> GetByDates(DateTime dates);
 
     }
 }

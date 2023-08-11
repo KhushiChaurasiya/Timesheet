@@ -13,102 +13,119 @@
 </div>
 
 <form [formGroup]="timesheetform" (ngSubmit)="onSubmit()"> 
-<table class="table table-striped" id="tblTimesheettracker">
-    <thead>
-        <tr>
-            <th>Tasks</th>
-            <th>Est Hrs</th>
-            <th>Work Place</th>
-            <th>Reason</th>
-            <th *ngFor="let item of weekDays">{{item}}</th>
-         <tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input type="text" class="form-control" (keyup)="getTaskNamesSearch($event)" id="taskId" list="dynmicTaskIds" formControlName="taskId" [ngClass]="{ 'is-invalid': submitted && f['taskId'].errors }"/>
-                <datalist id="dynmicTaskIds">
-                   <option *ngFor="let item of projectList" [value]="item.taskname">#{{item.id}} - {{item.taskname}}</option>
-                </datalist>
-                <div *ngIf="submitted && f['taskId'].errors" class="invalid-feedback">
-                    <div *ngIf="f['taskId'].errors && f['taskId'].errors['required']"></div>
-                </div>
-            </td>
-            <td>
-                <input type="text" class="form-control" id="estimationhrs" value="{{estimationHrs}}" />
-            </td>
-            <td>
-                <select class="form-control" id="workplaceId" (change)='onWorkplaceSelected($event)' formControlName="workplaceId" [ngClass]="{ 'is-invalid': submitted && f['workplaceId'].errors }">
-                    <option selected>Choose a workplace</option>
-                    <option *ngFor="let wor of workplaceData; let i = index" [value]="wor.id">
-                      {{wor.name}}
-                    </option>
-                  </select>
+    <table class="table table-striped" id="tblTimesheettracker">
+        <thead>
+            <tr>
+                <th>Tasks</th>
+                <th>Est Hrs</th>
+                <th>Work Place</th>
+                <th>Reason</th>
+                <th *ngFor="let item of weekDays">{{item}}</th>
+            <tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="form-control" (keyup)="getTaskNamesSearch($event)" id="taskId" list="dynmicTaskIds" formControlName="taskId" style="width: 293px;" [ngClass]="{ 'is-invalid': submitted && f['taskId'].errors }"/>
+                    <datalist id="dynmicTaskIds">
+                    <option *ngFor="let item of projectList" [value]="item.taskname">#{{item.id}} - {{item.taskname}}</option>
+                    </datalist>
+                    <div *ngIf="submitted && f['taskId'].errors" class="invalid-feedback">
+                        <div *ngIf="f['taskId'].errors && f['taskId'].errors['required']"></div>
+                    </div>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="estimationhrs" value="{{estimationHrs}}" style="width: 65px;"/>
+                </td>
+                <td>
+                    <select class="form-control" id="workplaceId" (change)='onWorkplaceSelected($event)' formControlName="workplaceId" [ngClass]="{ 'is-invalid': submitted && f['workplaceId'].errors }">
+                        <option selected>Choose a workplace</option>
+                        <option *ngFor="let wor of workplaceData; let i = index" [value]="wor.id">
+                        {{wor.name}}
+                        </option>
+                    </select>
 
-                  <div *ngIf="submitted && f['workplaceId'].errors" class="invalid-feedback">
-                    <div *ngIf="f['workplaceId'].errors && f['workplaceId'].errors['required']"></div>
-                </div>
-            </td>
-            <td>
-                <select class="form-control" id="reasonId" (change)='onReasonSelected($event)' formControlName="reasonId" [ngClass]="{ 'is-invalid': submitted && f['reasonId'].errors }">
-                    <option default>Choose a reason</option>
-                    <option *ngFor="let res of reasonData; let i = index" [value]="res.id">
-                      {{res.name}}
-                    </option>
-                  </select>
+                    <div *ngIf="submitted && f['workplaceId'].errors" class="invalid-feedback">
+                        <div *ngIf="f['workplaceId'].errors && f['workplaceId'].errors['required']"></div>
+                    </div>
+                </td>
+                <td>
+                    <select class="form-control" id="reasonId" (change)='onReasonSelected($event)' formControlName="reasonId" [ngClass]="{ 'is-invalid': submitted && f['reasonId'].errors }">
+                        <option default>Choose a reason</option>
+                        <option *ngFor="let res of reasonData; let i = index" [value]="res.id">
+                        {{res.name}}
+                        </option>
+                    </select>
 
-                  <div *ngIf="submitted && f['reasonId'].errors" class="invalid-feedback">
-                    <div *ngIf="f['reasonId'].errors && f['reasonId'].errors['required']"></div>
-                </div>
-            </td>
-            <td *ngFor="let item of weekDays; let i = index">
-                <input type="text" id="{{'time_'+ i}}" formControlName="times" class="form-control times" data-bs-toggle="modal" (click)="getHeaderName($event, i+4)" data-bs-target="#exampleModal" style="width: 50%;">
-                <input type="hidden" id="{{'description_'+i}}" class="form-control descri" name="desc"/>
-            </td>
-            <button type="submit" class="btn btn-primary form-control">Save All</button> 
-        </tr>
-    </tbody>
-</table>
+                    <div *ngIf="submitted && f['reasonId'].errors" class="invalid-feedback">
+                        <div *ngIf="f['reasonId'].errors && f['reasonId'].errors['required']"></div>
+                    </div>
+                </td>
+                <td *ngFor="let item of weekDays; let i = index">
+
+                    <input type="text" id="{{'time_'+ i}}"  formControlName="times" class="{{item}} form-control times" data-bs-toggle="modal" (click)="getHeaderName($event, i+4)" data-bs-target="#exampleModal" style="width: 94%;">
+                    <input type="hidden" id="{{'description_'+i}}" class="form-control descri" name="desc"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><b>Daily Total</b></td>
+                <td *ngFor="let item of weekDays; let i = index">
+                    <input type="text" id="{{'times_'+ i}}" class="form-control times" style="width: 94%;" value="" disabled >
+                </td> 
+            </tr>
+            <tr>
+                <td colspan="9"></td>
+                <td>
+                    <button type="button" class="btn btn-primary form-control" (click)="SaveAll()">Save All</button> 
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary form-control">Submit All</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Date Info</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Date Info</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                    <label for="time" class="col-form-label">Time</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-auto modal-body" >
+                        <input type="text" class="form-control" formControlName="times" id="times" value="" style="width: 80px;" [ngClass]="{ 'is-invalid': submitted && f['times'].errors }"/>
+                        <div *ngIf="submitted && f['times'].errors" class="invalid-feedback">
+                            <div *ngIf="f['times'].errors && f['times'].errors['required']"></div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                    <label for="taskDescription" class="col-form-label">Description</label>
+                    </div>
+                    <div class="col-auto">
+                        <textarea id="form4Example3" class="form-control" rows="4" cols="48" id="description" value="" formControlName="taskDescription" [ngClass]="{ 'is-invalid': submitted && f['taskDescription'].errors }"></textarea>   
+                        <div *ngIf="submitted && f['taskDescription'].errors" class="invalid-feedback">
+                            <div *ngIf="f['taskDescription'].errors && f['taskDescription'].errors['required']"></div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="modalSave" data-dismiss="modal" class="btn btn-primary" (click)="Save()">Ok</button>
+                    </div>
             </div>
-                <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                  <label for="time" class="col-form-label">Time</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-                <div class="col-auto modal-body" >
-                    <input type="text" class="form-control" formControlName="times" id="times" value="" style="width: 80px;" [ngClass]="{ 'is-invalid': submitted && f['times'].errors }"/>
-                    <div *ngIf="submitted && f['times'].errors" class="invalid-feedback">
-                        <div *ngIf="f['times'].errors && f['times'].errors['required']"></div>
-                    </div>
-                </div>
-                </div>
-                <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                  <label for="taskDescription" class="col-form-label">Description</label>
-                </div>
-                <div class="col-auto">
-                    <textarea id="form4Example3" class="form-control" rows="4" cols="48" id="description" value="" formControlName="taskDescription" [ngClass]="{ 'is-invalid': submitted && f['taskDescription'].errors }"></textarea>   
-                    <div *ngIf="submitted && f['taskDescription'].errors" class="invalid-feedback">
-                        <div *ngIf="f['taskDescription'].errors && f['taskDescription'].errors['required']"></div>
-                    </div>
-                </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="modalSave" data-dismiss="modal" class="btn btn-primary" (click)="Save()">Ok</button>
-                </div>
         </div>
     </div>
-</div>
-<!-- <a routerLink="/projectlist" class="btn btn-link">Cancel</a> -->
 </form>
 <style>
     .previous {

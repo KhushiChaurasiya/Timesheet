@@ -33,6 +33,21 @@ namespace Timesheet.Data.Repository
                 return null;
             }
         }
+
+        public async Task<Project> GetByProjectName(string proName)
+        {
+            if (proName != null)
+            {
+                DbSet<Project>? taskd = _context.Project;
+                var Obj = taskd.FirstOrDefault(x => x.Name == proName);
+                if (Obj != null) return Obj;
+                else return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
         public async Task<Employee> GetByEmailId(string EmailId)
         {
             if (EmailId != null)
@@ -81,22 +96,13 @@ namespace Timesheet.Data.Repository
         }
         public void ValidateByIDAndName(string Name, string ProjectId)
         {
-            var obj = _context.Project?.Where(x => x.Name == Name || x.Code == ProjectId).ToList();
-            if (obj != null)
+
+            var obj = _context.Project?.Any(x => (x.Name == Name || x.Code == ProjectId));
+            if (obj == true)
             {
                 throw new DuplicateNameException("Project is already exists");
             }
         }
-
-        //public async Task<List<ProjectTask>> GetAllTask()
-        //{
-        //    DbSet<ProjectTask>? res = _context.ProjectTask;
-        //    var Obj = res.Include(_ => _.Projects).ToList();
-        //    //var res = await _context.ProjectTask.Include(_ => _.Projects).ToListAsync();
-        //    if (Obj != null) return Obj;
-        //    else return null;
-        //}
-
         public async Task<List<ProjectTask>> GetAllTask()
         {
             DbSet<ProjectTask>? res = _context.ProjectTask;
@@ -126,13 +132,28 @@ namespace Timesheet.Data.Repository
             }
         }
 
-        public async Task<List<TimesheetTracker>> GetAllTimesheet()
+        public async Task<List<TimesheetTracker>> GetAllTimesheet(string Username)
         {
             DbSet<TimesheetTracker>? res = _context.TimesheetTracker;
-            var Obj = res.Include(_ => _.Projects).Include(w=>w.Workplace).Include(r=>r.Reason).Include(t=>t.ProjectTask).OrderBy(x=>x.Dates).ToList();
+            var Obj = res.Where(x=>x.CreatedBy == Username).Include(_ => _.Projects).Include(w=>w.Workplace).Include(r=>r.Reason).Include(t=>t.ProjectTask).OrderBy(x=>x.Dates).ToList();
             if (Obj != null) return Obj;
             else return null;
         }
+
+        public List<TimesheetTracker> GetByDates(DateTime dates)
+        {
+            if (dates != null)
+            {
+                var Obj = _context.TimesheetTracker.Where(x=>x.Dates == dates).ToList();
+                if (Obj != null) return Obj;
+                else return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
 
     }
 }
